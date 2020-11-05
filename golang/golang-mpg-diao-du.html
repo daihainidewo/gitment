@@ -1,0 +1,1860 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="golang MPG调度, Djaigo blog">
+    <meta name="description" content="blog go golang program IT">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153792940-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-153792940-1');
+</script>
+
+
+    <title>golang MPG调度 | Djaigo blog</title>
+    <link rel="icon" type="image/png" href="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Djaigo blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Djaigo blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Djaigo blog</div>
+        <div class="logo-desc">
+            
+            blog go golang program IT
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://img-1251474779.cos.ap-beijing.myqcloud.com/golang.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">golang MPG调度</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mpg/">
+                                <span class="chip bg-color">mpg</span>
+                            </a>
+                        
+                            <a href="/tags/infra/">
+                                <span class="chip bg-color">infra</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/golang/" class="post-category">
+                                golang
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-07
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-08-07
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    26 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="MPG"><a href="#MPG" class="headerlink" title="MPG"></a>MPG</h1><p>MPG是golang的并发模型，结构源码在<code>runtime/runtime2.go</code>里面，主体逻辑结构在<code>runtime/proc.go</code>里，是golang可以高并发的根本。</p>
+<ul>
+<li>M，连接一个内核态的线程，goroutine跑在M上，每个M都会有一个g0的G，用于协调P队列里的G，在调度或系统调用时会用到g0的栈</li>
+<li>P，维护执行G队列，管理G上下文</li>
+<li>G，代表goroutine的元数据，包括栈信息，M信息，计数器等</li>
+</ul>
+<p>除了MPG之外，还有Sched来负责全局队列的处理。<br>四者协同完成整个golang的高并发处理的主要逻辑，还有其他小的结构进行辅助，例如：sudog（G队列）、stack（栈信息）等。</p>
+<p>M、P数量：</p>
+<ul>
+<li>P的数量可以在启动时通过环境变量<code>$GOMAXPROCS</code>，或在代码中通过<code>runtime</code>包的<code>GOMAXPROCS()</code>设置。P的数量限制了最大goroutine并发执行数。</li>
+<li>M的数量在启动时会被<code>schedinit()</code>设置成<code>sched.maxmcount = 10000</code>，可在代码中调用<code>runtime/debug</code>包的<code>SetMaxThreads()</code>。M的数量限制了最大可用的系统线程数。</li>
+</ul>
+<p>M、P创建：</p>
+<ul>
+<li>P，在系统确定了P的数量后就会创建指定个数的P</li>
+<li>M，如果P没有M，则会去全局休眠M队列中找，如果还没有则会创建M</li>
+</ul>
+<p>M调度策略：</p>
+<ul>
+<li>work stealing，当M执行G结束后，会从绑定P中获取G，而不是销毁当前M</li>
+<li>hand off，当G调用阻塞系统调用时，M释放绑定的P，将P交给空闲的M</li>
+</ul>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>程序启动第一时间都会调用<code>runtime.main()</code>，进行相关值的初始化。</p>
+<pre><code>// The main goroutine.
+func main() {
+    g := getg()
+
+    // Racectx of m0-&gt;g0 is used only as the parent of the main goroutine.
+    // It must not be used for anything else.
+    g.m.g0.racectx = 0
+
+    // Max stack size is 1 GB on 64-bit, 250 MB on 32-bit.
+    // Using decimal instead of binary GB and MB because
+    // they look nicer in the stack overflow failure message.
+    // 设置栈的最大值
+    if sys.PtrSize == 8 {
+        maxstacksize = 1000000000
+    } else {
+        maxstacksize = 250000000
+    }
+
+    // Allow newproc to start new Ms.
+    // 允许新P创建M
+    mainStarted = true
+
+    if GOARCH != "wasm" { // no threads on wasm yet, so no sysmon
+        systemstack(func() {
+            newm(sysmon, nil, -1)
+        })
+    }
+
+    // Lock the main goroutine onto this, the main OS thread,
+    // during initialization. Most programs won't care, but a few
+    // do require certain calls to be made by the main thread.
+    // Those can arrange for main.main to run in the main thread
+    // by calling runtime.LockOSThread during initialization
+    // to preserve the lock.
+    lockOSThread()
+
+    if g.m != &amp;m0 {
+        throw("runtime.main not on m0")
+    }
+
+    doInit(&amp;runtime_inittask) // must be before defer
+    if nanotime() == 0 {
+        throw("nanotime returning zero")
+    }
+
+    // Defer unlock so that runtime.Goexit during init does the unlock too.
+    needUnlock := true
+    defer func() {
+        if needUnlock {
+            unlockOSThread()
+        }
+    }()
+
+    // Record when the world started.
+    // 记录启动时间
+    runtimeInitTime = nanotime()
+
+    gcenable() // 开启GC
+    ...
+    needUnlock = false
+    unlockOSThread()
+
+    if isarchive || islibrary {
+        // A program compiled with -buildmode=c-archive or c-shared
+        // has a main, but it is not executed.
+        return
+    }
+
+    // 执行main包的main函数
+    fn := main_main // make an indirect call, as the linker doesn't know the address of the main package when laying down the runtime
+    fn()
+    if raceenabled {
+        racefini() // 竞态检测
+    }
+
+    // Make racy client program work: if panicking on
+    // another goroutine at the same time as main returns,
+    // let the other goroutine finish printing the panic trace.
+    // Once it does, it will exit. See issues 3934 and 20018.
+    // 如果goroutine panic了则创建另一个goroutine打印相关信息，完成之后新建goroutine将退出
+    if atomic.Load(&amp;runningPanicDefers) != 0 {
+        // Running deferred functions should not take long.
+        for c := 0; c &lt; 1000; c++ {
+            if atomic.Load(&amp;runningPanicDefers) == 0 {
+                break
+            }
+            Gosched()
+        }
+    }
+    if atomic.Load(&amp;panicking) != 0 {
+        gopark(nil, nil, waitReasonPanicWait, traceEvGoStop, 1)
+    }
+
+    exit(0) // 退出进程
+    for {
+        var x *int32
+        *x = 0
+    }
+}</code></pre><p>在程序启动时会创建m0，同时创建g0，在<code>runtime/proc.go</code>声明：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    m0 m
+    g0 g
+<span class="token punctuation">)</span></code></pre>
+<blockquote>
+<p>特殊的m0，是启动程序后的编号为0的主线程，这个M对应的实例会在全局变量<code>runtime.m0</code>中，不需要在heap上分配，m0负责执行初始化操作和启动第一个G，在之后M0就和其他的一样了。</p>
+</blockquote>
+<p>初始化P，创建<code>main()</code>的g1，将g1存放于p的本地G队列中，启动m0，m0绑定p，如果绑定不成功就会进入全局休眠M队列等待被唤醒，从p中获取可执行的G，如果没有课执行的G则会进入自旋状态，如果获取到g1，设置g1的运行环境，运行g1，g1退出，m0继续通过p获取G。</p>
+<blockquote>
+<p>自旋状态，是指M绑定的P没有可以执行的G，此时M执行的g0，轮询P的本地空闲G队列有没有可执行的G</p>
+</blockquote>
+<h2 id="三者关系"><a href="#三者关系" class="headerlink" title="三者关系"></a>三者关系</h2><ul>
+<li><p><code>G</code>需要绑定在<code>M</code>上才能运行；</p>
+</li>
+<li><p><code>M</code>需要绑定<code>P</code>才能运行；</p>
+</li>
+<li><p>程序中的多个<code>M</code>并不会同时都处于执行状态，最多只有<code>GOMAXPROCS</code>个<code>M</code>在执行。</p>
+<p>早期版本的Golang是没有<code>P</code>的，调度是由<code>G</code>与<code>M</code>完成。 这样的问题在于每当创建、终止Goroutine或者需要调度时，需要一个全局的锁来保护调度的相关对象(sched)。 全局锁严重影响Goroutine的并发性能。<br>通过引入<code>P</code>，实现了一种叫做<code>work-stealing</code>的调度算法：</p>
+</li>
+<li><p>每个<code>P</code>维护一个<code>G</code>队列；</p>
+</li>
+<li><p>当一个<code>G</code>被创建出来，或者变为可执行状态时，就把他放到<code>P</code>的可执行队列中；</p>
+</li>
+<li><p>当一个<code>G</code>执行结束时，<code>P</code>会从队列中把该<code>G</code>取出；如果此时<code>P</code>的队列为空，即没有其他<code>G</code>可以执行， 就随机选择另外一个<code>P</code>，从其可执行的<code>G</code>队列中偷取一半。</p>
+</li>
+</ul>
+<p>该算法避免了在Goroutine调度时使用全局锁。</p>
+<h1 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h1><h2 id="trace"><a href="#trace" class="headerlink" title="trace"></a>trace</h2><p>代码：</p>
+<pre><code>package main
+
+import (
+    "fmt"
+    "os"
+    "runtime/trace"
+)
+
+func main() {
+    f, err := os.Create("trace.out")
+    if err != nil {
+        panic(err)
+    }
+
+    defer f.Close()
+
+    err = trace.Start(f)
+    if err != nil {
+        panic(err)
+    }
+    defer trace.Stop()
+
+    fmt.Println("Hello world!")
+}</code></pre><p>运行程序会生成一个trace.out的文件，可以通过tool工具将其可视化</p>
+<pre><code>➜ go tool trace trace.out</code></pre><p>这样写会对代码侵入太强，可以写成测试文件，在test的时候生成trace.out文件，在<code>Test()</code>不需要显式的调用上面的代码，代码如下：</p>
+<pre><code>package main
+
+import (
+    "fmt"
+    "testing"
+)
+
+func Test(t *testing.T) {
+    fmt.Println("Hello world!")
+}</code></pre><p>执行代码</p>
+<pre><code>go test -trace trace.out -run Test</code></pre><p>也可以生成trace.out文件。<br>在有了trace.out文件后，执行<code>go tool trace trace.out</code>，启动http服务可视化查看MPG的相关信息。</p>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p>代码：</p>
+<pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello world!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+<p>在执行之前设置<code>GODEBUG=schedtrace=10</code>，单位毫秒<br>执行结果</p>
+<pre class=" language-sh"><code class="language-sh">GODEBUG=schedtrace=10 go run main.go 
+SCHED 0ms: gomaxprocs=4 idleprocs=1 threads=6 spinningthreads=1 idlethreads=0 runqueue=0 [1 0 0 0]
+SCHED 18ms: gomaxprocs=4 idleprocs=0 threads=9 spinningthreads=1 idlethreads=2 runqueue=1 [0 4 0 0]
+SCHED 30ms: gomaxprocs=4 idleprocs=1 threads=9 spinningthreads=1 idlethreads=2 runqueue=0 [0 0 0 0]
+SCHED 42ms: gomaxprocs=4 idleprocs=2 threads=9 spinningthreads=0 idlethreads=3 runqueue=1 [0 0 0 0]
+SCHED 53ms: gomaxprocs=4 idleprocs=4 threads=9 spinningthreads=0 idlethreads=4 runqueue=0 [0 0 0 0]
+SCHED 66ms: gomaxprocs=4 idleprocs=0 threads=9 spinningthreads=1 idlethreads=2 runqueue=1 [0 0 0 0]
+SCHED 79ms: gomaxprocs=4 idleprocs=3 threads=9 spinningthreads=0 idlethreads=4 runqueue=0 [0 0 0 0]</code></pre>
+<ul>
+<li><code>SCHED 0ms</code>：调试信息输出标志字符串，后面是执行的时间戳</li>
+<li><code>gomaxprocs</code>：P的数量，本例有4个P，默认与cpu核心数量一致，可以通过GOMAXPROCS来设置</li>
+<li><code>idleprocs</code>：处于idle状态P的数量</li>
+<li><code>threads</code>：M的数量，包含scheduler使用的M数量，加上runtime自用的类似sysmon这样的thread的数量</li>
+<li><code>spinningthreads</code>: 处于自旋状态M数量</li>
+<li><code>idlethread</code>: 处于idle状态的M的数量</li>
+<li><code>runqueue=0</code>：Scheduler全局队列中G的数量</li>
+<li><code>[0 0 0 0]</code>: 分别为4个的<code>local queue</code>中的G的数量</li>
+</ul>
+<h1 id="关键字段说明"><a href="#关键字段说明" class="headerlink" title="关键字段说明"></a>关键字段说明</h1><h2 id="M"><a href="#M" class="headerlink" title="M"></a>M</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">type</span> m <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    g0      <span class="token operator">*</span>g     <span class="token comment" spellcheck="true">// goroutine with scheduling stack</span>
+    morebuf gobuf  <span class="token comment" spellcheck="true">// gobuf arg to morestack</span>
+    divmod  <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// div/mod denominator for arm - known to liblink</span>
+
+    <span class="token comment" spellcheck="true">// Fields not known to debuggers.</span>
+    procid        <span class="token builtin">uint64</span>       <span class="token comment" spellcheck="true">// for debuggers, but offset not hard-coded</span>
+    gsignal       <span class="token operator">*</span>g           <span class="token comment" spellcheck="true">// signal-handling g</span>
+    goSigStack    gsignalStack <span class="token comment" spellcheck="true">// Go-allocated signal handling stack</span>
+    sigmask       sigset       <span class="token comment" spellcheck="true">// storage for saved signal mask</span>
+    tls           <span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token builtin">uintptr</span>   <span class="token comment" spellcheck="true">// thread-local storage (for x86 extern register)</span>
+    mstartfn      <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    curg          <span class="token operator">*</span>g       <span class="token comment" spellcheck="true">// 当前执行的G，检测gp</span>
+    caughtsig     guintptr <span class="token comment" spellcheck="true">// goroutine running during fatal signal</span>
+    p             puintptr <span class="token comment" spellcheck="true">// 绑定的P执行go代码 (如果没有执行go代码则为nil)</span>
+    nextp         puintptr
+    oldp          puintptr <span class="token comment" spellcheck="true">// 执行系统调用之前的P</span>
+    id            <span class="token builtin">int64</span>
+    mallocing     <span class="token builtin">int32</span>
+    throwing      <span class="token builtin">int32</span>
+    preemptoff    <span class="token builtin">string</span> <span class="token comment" spellcheck="true">// if != "", keep curg running on this m</span>
+    locks         <span class="token builtin">int32</span>  <span class="token comment" spellcheck="true">// m的引用计数 </span>
+    dying         <span class="token builtin">int32</span>
+    profilehz     <span class="token builtin">int32</span>
+    spinning      <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// m is out of work and is actively looking for work</span>
+    blocked       <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// m is blocked on a note</span>
+    newSigstack   <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// minit on C thread called sigaltstack</span>
+    printlock     <span class="token builtin">int8</span>
+    incgo         <span class="token builtin">bool</span>   <span class="token comment" spellcheck="true">// m is executing a cgo call</span>
+    freeWait      <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// if == 0, safe to free g0 and delete m (atomic)</span>
+    fastrand      <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// 两个随机值，不能同时为0</span>
+    needextram    <span class="token builtin">bool</span>
+    traceback     <span class="token builtin">uint8</span>
+    ncgocall      <span class="token builtin">uint64</span>      <span class="token comment" spellcheck="true">// number of cgo calls in total</span>
+    ncgo          <span class="token builtin">int32</span>       <span class="token comment" spellcheck="true">// number of cgo calls currently in progress</span>
+    cgoCallersUse <span class="token builtin">uint32</span>      <span class="token comment" spellcheck="true">// if non-zero, cgoCallers in use temporarily</span>
+    cgoCallers    <span class="token operator">*</span>cgoCallers <span class="token comment" spellcheck="true">// cgo traceback if crashing in cgo call</span>
+    park          note
+    alllink       <span class="token operator">*</span>m <span class="token comment" spellcheck="true">// on allm</span>
+    schedlink     muintptr    <span class="token comment" spellcheck="true">// M的单链表</span>
+    lockedg       guintptr    <span class="token comment" spellcheck="true">// M锁定的G</span>
+    createstack   <span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// stack that created this thread.</span>
+    lockedExt     <span class="token builtin">uint32</span>      <span class="token comment" spellcheck="true">// tracking for external LockOSThread</span>
+    lockedInt     <span class="token builtin">uint32</span>      <span class="token comment" spellcheck="true">// tracking for internal lockOSThread</span>
+    nextwaitm     muintptr    <span class="token comment" spellcheck="true">// next m waiting for lock</span>
+    waitunlockf   <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token operator">*</span>g<span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span>Pointer<span class="token punctuation">)</span> <span class="token builtin">bool</span>
+    waitlock      unsafe<span class="token punctuation">.</span>Pointer
+    waittraceev   <span class="token builtin">byte</span>
+    waittraceskip <span class="token builtin">int</span>
+    startingtrace <span class="token builtin">bool</span>
+    syscalltick   <span class="token builtin">uint32</span>
+    freelink      <span class="token operator">*</span>m <span class="token comment" spellcheck="true">// 对应全局休眠M队列</span>
+
+    <span class="token comment" spellcheck="true">// these are here because they are too large to be on the stack</span>
+    <span class="token comment" spellcheck="true">// of low-level NOSPLIT functions.</span>
+    libcall   libcall
+    libcallpc <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// for cpu profiler</span>
+    libcallsp <span class="token builtin">uintptr</span>
+    libcallg  guintptr
+    syscall   libcall <span class="token comment" spellcheck="true">// stores syscall parameters on windows</span>
+
+    vdsoSP <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// SP for traceback while in VDSO call (0 if not in call)</span>
+    vdsoPC <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// PC for traceback while in VDSO call</span>
+
+    <span class="token comment" spellcheck="true">// preemptGen counts the number of completed preemption</span>
+    <span class="token comment" spellcheck="true">// signals. This is used to detect when a preemption is</span>
+    <span class="token comment" spellcheck="true">// requested, but fails. Accessed atomically.</span>
+    preemptGen <span class="token builtin">uint32</span>
+
+    <span class="token comment" spellcheck="true">// Whether this is a pending preemption signal on this M.</span>
+    <span class="token comment" spellcheck="true">// Accessed atomically.</span>
+    signalPending <span class="token builtin">uint32</span>
+
+    dlogPerM
+
+    mOS
+
+    <span class="token comment" spellcheck="true">// Up to 10 locks held by this m, maintained by the lock ranking code.</span>
+    locksHeldLen <span class="token builtin">int</span>
+    locksHeld    <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span>heldLockInfo
+<span class="token punctuation">}</span></code></pre>
+<h2 id="P"><a href="#P" class="headerlink" title="P"></a>P</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">type</span> p <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    id          <span class="token builtin">int32</span>
+    status      <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// one of pidle/prunning/...</span>
+    link        puintptr   <span class="token comment" spellcheck="true">// P的单链表</span>
+    schedtick   <span class="token builtin">uint32</span>     <span class="token comment" spellcheck="true">// incremented on every scheduler call</span>
+    syscalltick <span class="token builtin">uint32</span>     <span class="token comment" spellcheck="true">// incremented on every system call</span>
+    sysmontick  sysmontick <span class="token comment" spellcheck="true">// last tick observed by sysmon</span>
+    m           muintptr   <span class="token comment" spellcheck="true">// 当前的M，如果空闲则为nil</span>
+    mcache      <span class="token operator">*</span>mcache
+    pcache      pageCache
+    raceprocctx <span class="token builtin">uintptr</span>
+
+    deferpool    <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>_defer <span class="token comment" spellcheck="true">// pool of available defer structs of different sizes (see panic.go)</span>
+    deferpoolbuf <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token operator">*</span>_defer
+
+    <span class="token comment" spellcheck="true">// Cache of goroutine ids, amortizes accesses to runtime·sched.goidgen.</span>
+    goidcache    <span class="token builtin">uint64</span>
+    goidcacheend <span class="token builtin">uint64</span>
+
+    <span class="token comment" spellcheck="true">// Queue of runnable goroutines. Accessed without lock.</span>
+    runqhead <span class="token builtin">uint32</span>         <span class="token comment" spellcheck="true">// 队首下标</span>
+    runqtail <span class="token builtin">uint32</span>         <span class="token comment" spellcheck="true">// 队尾下标</span>
+    runq     <span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span>guintptr  <span class="token comment" spellcheck="true">// 可执行队列，最多256个</span>
+    <span class="token comment" spellcheck="true">// runnext, if non-nil, is a runnable G that was ready'd by</span>
+    <span class="token comment" spellcheck="true">// the current G and should be run next instead of what's in</span>
+    <span class="token comment" spellcheck="true">// runq if there's time remaining in the running G's time</span>
+    <span class="token comment" spellcheck="true">// slice. It will inherit the time left in the current time</span>
+    <span class="token comment" spellcheck="true">// slice. If a set of goroutines is locked in a</span>
+    <span class="token comment" spellcheck="true">// communicate-and-wait pattern, this schedules that set as a</span>
+    <span class="token comment" spellcheck="true">// unit and eliminates the (potentially large) scheduling</span>
+    <span class="token comment" spellcheck="true">// latency that otherwise arises from adding the ready'd</span>
+    <span class="token comment" spellcheck="true">// goroutines to the end of the run queue.</span>
+    runnext guintptr
+
+    <span class="token comment" spellcheck="true">// Available G's (status == Gdead)</span>
+    gFree <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        gList
+        n <span class="token builtin">int32</span>
+    <span class="token punctuation">}</span>
+
+    sudogcache <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>sudog     <span class="token comment" spellcheck="true">// 本地G的队列</span>
+    sudogbuf   <span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token operator">*</span>sudog
+
+    <span class="token comment" spellcheck="true">// Cache of mspan objects from the heap.</span>
+    mspancache <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// We need an explicit length here because this field is used</span>
+        <span class="token comment" spellcheck="true">// in allocation codepaths where write barriers are not allowed,</span>
+        <span class="token comment" spellcheck="true">// and eliminating the write barrier/keeping it eliminated from</span>
+        <span class="token comment" spellcheck="true">// slice updates is tricky, moreso than just managing the length</span>
+        <span class="token comment" spellcheck="true">// ourselves.</span>
+        <span class="token builtin">len</span> <span class="token builtin">int</span>
+        buf <span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token operator">*</span>mspan
+    <span class="token punctuation">}</span>
+
+    tracebuf traceBufPtr
+
+    <span class="token comment" spellcheck="true">// traceSweep indicates the sweep events should be traced.</span>
+    <span class="token comment" spellcheck="true">// This is used to defer the sweep start event until a span</span>
+    <span class="token comment" spellcheck="true">// has actually been swept.</span>
+    traceSweep <span class="token builtin">bool</span>
+    <span class="token comment" spellcheck="true">// traceSwept and traceReclaimed track the number of bytes</span>
+    <span class="token comment" spellcheck="true">// swept and reclaimed by sweeping in the current sweep loop.</span>
+    traceSwept<span class="token punctuation">,</span> traceReclaimed <span class="token builtin">uintptr</span>
+
+    palloc persistentAlloc <span class="token comment" spellcheck="true">// per-P to avoid mutex</span>
+
+    <span class="token boolean">_</span> <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// Alignment for atomic fields below</span>
+
+    <span class="token comment" spellcheck="true">// The when field of the first entry on the timer heap.</span>
+    <span class="token comment" spellcheck="true">// This is updated using atomic functions.</span>
+    <span class="token comment" spellcheck="true">// This is 0 if the timer heap is empty.</span>
+    timer0When <span class="token builtin">uint64</span>
+
+    <span class="token comment" spellcheck="true">// Per-P GC state</span>
+    gcAssistTime         <span class="token builtin">int64</span>    <span class="token comment" spellcheck="true">// Nanoseconds in assistAlloc</span>
+    gcFractionalMarkTime <span class="token builtin">int64</span>    <span class="token comment" spellcheck="true">// Nanoseconds in fractional mark worker (atomic)</span>
+    gcBgMarkWorker       guintptr <span class="token comment" spellcheck="true">// (atomic)</span>
+    gcMarkWorkerMode     gcMarkWorkerMode
+
+    <span class="token comment" spellcheck="true">// gcMarkWorkerStartTime is the nanotime() at which this mark</span>
+    <span class="token comment" spellcheck="true">// worker started.</span>
+    gcMarkWorkerStartTime <span class="token builtin">int64</span>
+
+    <span class="token comment" spellcheck="true">// gcw is this P's GC work buffer cache. The work buffer is</span>
+    <span class="token comment" spellcheck="true">// filled by write barriers, drained by mutator assists, and</span>
+    <span class="token comment" spellcheck="true">// disposed on certain GC state transitions.</span>
+    gcw gcWork
+
+    <span class="token comment" spellcheck="true">// wbBuf is this P's GC write barrier buffer.</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// TODO: Consider caching this in the running G.</span>
+    wbBuf wbBuf
+
+    runSafePointFn <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// if 1, run sched.safePointFn at next safe point</span>
+
+    <span class="token comment" spellcheck="true">// Lock for timers. We normally access the timers while running</span>
+    <span class="token comment" spellcheck="true">// on this P, but the scheduler can also do it from a different P.</span>
+    timersLock mutex
+
+    <span class="token comment" spellcheck="true">// Actions to take at some time. This is used to implement the</span>
+    <span class="token comment" spellcheck="true">// standard library's time package.</span>
+    <span class="token comment" spellcheck="true">// Must hold timersLock to access.</span>
+    timers <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>timer
+
+    <span class="token comment" spellcheck="true">// Number of timers in P's heap.</span>
+    <span class="token comment" spellcheck="true">// Modified using atomic instructions.</span>
+    numTimers <span class="token builtin">uint32</span>
+
+    <span class="token comment" spellcheck="true">// Number of timerModifiedEarlier timers on P's heap.</span>
+    <span class="token comment" spellcheck="true">// This should only be modified while holding timersLock,</span>
+    <span class="token comment" spellcheck="true">// or while the timer status is in a transient state</span>
+    <span class="token comment" spellcheck="true">// such as timerModifying.</span>
+    adjustTimers <span class="token builtin">uint32</span>
+
+    <span class="token comment" spellcheck="true">// Number of timerDeleted timers in P's heap.</span>
+    <span class="token comment" spellcheck="true">// Modified using atomic instructions.</span>
+    deletedTimers <span class="token builtin">uint32</span>
+
+    <span class="token comment" spellcheck="true">// Race context used while executing timer functions.</span>
+    timerRaceCtx <span class="token builtin">uintptr</span>
+
+    <span class="token comment" spellcheck="true">// preempt is set to indicate that this P should be enter the</span>
+    <span class="token comment" spellcheck="true">// scheduler ASAP (regardless of what G is running on it).</span>
+    preempt <span class="token builtin">bool</span>
+
+    pad cpu<span class="token punctuation">.</span>CacheLinePad
+<span class="token punctuation">}</span></code></pre>
+<h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">type</span> g <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Stack parameters.</span>
+    <span class="token comment" spellcheck="true">// stack describes the actual stack memory: [stack.lo, stack.hi).</span>
+    <span class="token comment" spellcheck="true">// stackguard0 is the stack pointer compared in the Go stack growth prologue.</span>
+    <span class="token comment" spellcheck="true">// It is stack.lo+StackGuard normally, but can be StackPreempt to trigger a preemption.</span>
+    <span class="token comment" spellcheck="true">// stackguard1 is the stack pointer compared in the C stack growth prologue.</span>
+    <span class="token comment" spellcheck="true">// It is stack.lo+StackGuard on g0 and gsignal stacks.</span>
+    <span class="token comment" spellcheck="true">// It is ~0 on other goroutine stacks, to trigger a call to morestackc (and crash).</span>
+    stack       stack   <span class="token comment" spellcheck="true">// offset known to runtime/cgo</span>
+    stackguard0 <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// offset known to liblink</span>
+    stackguard1 <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// offset known to liblink</span>
+
+    _panic       <span class="token operator">*</span>_panic <span class="token comment" spellcheck="true">// innermost panic - offset known to liblink</span>
+    _defer       <span class="token operator">*</span>_defer <span class="token comment" spellcheck="true">// innermost defer</span>
+    m            <span class="token operator">*</span>m      <span class="token comment" spellcheck="true">// 当前M；offset known to arm liblink</span>
+    sched        gobuf
+    syscallsp    <span class="token builtin">uintptr</span>        <span class="token comment" spellcheck="true">// if status==Gsyscall, syscallsp = sched.sp to use during gc</span>
+    syscallpc    <span class="token builtin">uintptr</span>        <span class="token comment" spellcheck="true">// if status==Gsyscall, syscallpc = sched.pc to use during gc</span>
+    stktopsp     <span class="token builtin">uintptr</span>        <span class="token comment" spellcheck="true">// expected sp at top of stack, to check in traceback</span>
+    param        unsafe<span class="token punctuation">.</span>Pointer <span class="token comment" spellcheck="true">// passed parameter on wakeup</span>
+    atomicstatus <span class="token builtin">uint32</span>     <span class="token comment" spellcheck="true">// G的状态</span>
+    stackLock    <span class="token builtin">uint32</span>     <span class="token comment" spellcheck="true">// sigprof/scang lock; TODO: fold in to atomicstatus</span>
+    goid         <span class="token builtin">int64</span>      <span class="token comment" spellcheck="true">// goroutine id</span>
+    schedlink    guintptr   <span class="token comment" spellcheck="true">// 下一个G的地址</span>
+    waitsince    <span class="token builtin">int64</span>      <span class="token comment" spellcheck="true">// approx time when the g become blocked</span>
+    waitreason   waitReason <span class="token comment" spellcheck="true">// if status==Gwaiting</span>
+
+    preempt       <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// preemption signal, duplicates stackguard0 = stackpreempt</span>
+    preemptStop   <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// transition to _Gpreempted on preemption; otherwise, just deschedule</span>
+    preemptShrink <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// shrink stack at synchronous safe point</span>
+
+    <span class="token comment" spellcheck="true">// asyncSafePoint is set if g is stopped at an asynchronous</span>
+    <span class="token comment" spellcheck="true">// safe point. This means there are frames on the stack</span>
+    <span class="token comment" spellcheck="true">// without precise pointer information.</span>
+    asyncSafePoint <span class="token builtin">bool</span>
+
+    paniconfault <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// panic (instead of crash) on unexpected fault address</span>
+    gcscandone   <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// g has scanned stack; protected by _Gscan bit in status</span>
+    throwsplit   <span class="token builtin">bool</span> <span class="token comment" spellcheck="true">// must not split stack</span>
+    <span class="token comment" spellcheck="true">// activeStackChans indicates that there are unlocked channels</span>
+    <span class="token comment" spellcheck="true">// pointing into this goroutine's stack. If true, stack</span>
+    <span class="token comment" spellcheck="true">// copying needs to acquire channel locks to protect these</span>
+    <span class="token comment" spellcheck="true">// areas of the stack.</span>
+    activeStackChans <span class="token builtin">bool</span>
+
+    raceignore     <span class="token builtin">int8</span>     <span class="token comment" spellcheck="true">// ignore race detection events</span>
+    sysblocktraced <span class="token builtin">bool</span>     <span class="token comment" spellcheck="true">// StartTrace has emitted EvGoInSyscall about this goroutine</span>
+    sysexitticks   <span class="token builtin">int64</span>    <span class="token comment" spellcheck="true">// cputicks when syscall has returned (for tracing)</span>
+    traceseq       <span class="token builtin">uint64</span>   <span class="token comment" spellcheck="true">// trace event sequencer</span>
+    tracelastp     puintptr <span class="token comment" spellcheck="true">// last P emitted an event for this goroutine</span>
+    lockedm        muintptr
+    sig            <span class="token builtin">uint32</span>
+    writebuf       <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+    sigcode0       <span class="token builtin">uintptr</span>
+    sigcode1       <span class="token builtin">uintptr</span>
+    sigpc          <span class="token builtin">uintptr</span>
+    gopc           <span class="token builtin">uintptr</span>         <span class="token comment" spellcheck="true">// pc of go statement that created this goroutine</span>
+    ancestors      <span class="token operator">*</span><span class="token punctuation">[</span><span class="token punctuation">]</span>ancestorInfo <span class="token comment" spellcheck="true">// ancestor information goroutine(s) that created this goroutine (only used if debug.tracebackancestors)</span>
+    startpc        <span class="token builtin">uintptr</span>         <span class="token comment" spellcheck="true">// pc of goroutine function</span>
+    racectx        <span class="token builtin">uintptr</span>
+    waiting        <span class="token operator">*</span>sudog         <span class="token comment" spellcheck="true">// sudog structures this g is waiting on (that have a valid elem ptr); in lock order</span>
+    cgoCtxt        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">uintptr</span>      <span class="token comment" spellcheck="true">// cgo traceback context</span>
+    labels         unsafe<span class="token punctuation">.</span>Pointer <span class="token comment" spellcheck="true">// profiler labels</span>
+    timer          <span class="token operator">*</span>timer         <span class="token comment" spellcheck="true">// cached timer for time.Sleep</span>
+    selectDone     <span class="token builtin">uint32</span>         <span class="token comment" spellcheck="true">// are we participating in a select and did someone win the race?</span>
+
+    <span class="token comment" spellcheck="true">// Per-G GC state</span>
+
+    <span class="token comment" spellcheck="true">// gcAssistBytes is this G's GC assist credit in terms of</span>
+    <span class="token comment" spellcheck="true">// bytes allocated. If this is positive, then the G has credit</span>
+    <span class="token comment" spellcheck="true">// to allocate gcAssistBytes bytes without assisting. If this</span>
+    <span class="token comment" spellcheck="true">// is negative, then the G must correct this by performing</span>
+    <span class="token comment" spellcheck="true">// scan work. We track this in bytes to make it fast to update</span>
+    <span class="token comment" spellcheck="true">// and check for debt in the malloc hot path. The assist ratio</span>
+    <span class="token comment" spellcheck="true">// determines how this corresponds to scan work debt.</span>
+    gcAssistBytes <span class="token builtin">int64</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="Sched"><a href="#Sched" class="headerlink" title="Sched"></a>Sched</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">type</span> schedt <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// accessed atomically. keep at top to ensure alignment on 32-bit systems.</span>
+    goidgen   <span class="token builtin">uint64</span>
+    lastpoll  <span class="token builtin">uint64</span> <span class="token comment" spellcheck="true">// time of last network poll, 0 if currently polling</span>
+    pollUntil <span class="token builtin">uint64</span> <span class="token comment" spellcheck="true">// time to which current poll is sleeping</span>
+
+    lock mutex <span class="token comment" spellcheck="true">// 操作锁，锁定schedt</span>
+
+    <span class="token comment" spellcheck="true">// When increasing nmidle, nmidlelocked, nmsys, or nmfreed, be</span>
+    <span class="token comment" spellcheck="true">// sure to call checkdead().</span>
+
+    midle        muintptr <span class="token comment" spellcheck="true">// 空闲M单链表</span>
+    nmidle       <span class="token builtin">int32</span>    <span class="token comment" spellcheck="true">// 空闲M的个数</span>
+    nmidlelocked <span class="token builtin">int32</span>    <span class="token comment" spellcheck="true">// number of locked m's waiting for work</span>
+    mnext        <span class="token builtin">int64</span>    <span class="token comment" spellcheck="true">// number of m's that have been created and next M ID</span>
+    maxmcount    <span class="token builtin">int32</span>    <span class="token comment" spellcheck="true">// maximum number of m's allowed (or die)</span>
+    nmsys        <span class="token builtin">int32</span>    <span class="token comment" spellcheck="true">// number of system m's not counted for deadlock</span>
+    nmfreed      <span class="token builtin">int64</span>    <span class="token comment" spellcheck="true">// cumulative number of freed m's</span>
+
+    ngsys <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// number of system goroutines; updated atomically</span>
+
+    pidle      puintptr <span class="token comment" spellcheck="true">// 空闲的P</span>
+    npidle     <span class="token builtin">uint32</span>
+    nmspinning <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// See "Worker thread parking/unparking" comment in proc.go.</span>
+
+    <span class="token comment" spellcheck="true">// Global runnable queue.</span>
+    runq     gQueue  <span class="token comment" spellcheck="true">// 全局可执行队列</span>
+    runqsize <span class="token builtin">int32</span>   <span class="token comment" spellcheck="true">// 全局队列大小</span>
+
+    <span class="token comment" spellcheck="true">// disable控制有选择的禁用调度</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// 使用schedEnableUser(enable bool)进行控制</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// disable需要被sched.lock保护</span>
+    disable <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// user是否禁止调度goroutines.</span>
+        user     <span class="token builtin">bool</span>
+        runnable gQueue <span class="token comment" spellcheck="true">// pending runnable Gs</span>
+        n        <span class="token builtin">int32</span>  <span class="token comment" spellcheck="true">// length of runnable</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// Global cache of dead G's.</span>
+    gFree <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        lock    mutex
+        stack   gList <span class="token comment" spellcheck="true">// Gs with stacks</span>
+        noStack gList <span class="token comment" spellcheck="true">// Gs without stacks</span>
+        n       <span class="token builtin">int32</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// Central cache of sudog structs.</span>
+    sudoglock  mutex  <span class="token comment" spellcheck="true">// 全局空闲G队列锁</span>
+    sudogcache <span class="token operator">*</span>sudog <span class="token comment" spellcheck="true">// 全局空闲G队列</span>
+
+    <span class="token comment" spellcheck="true">// Central pool of available defer structs of different sizes.</span>
+    deferlock mutex
+    deferpool <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">*</span>_defer
+
+    <span class="token comment" spellcheck="true">// freem is the list of m's waiting to be freed when their</span>
+    <span class="token comment" spellcheck="true">// m.exited is set. Linked through m.freelink.</span>
+    freem <span class="token operator">*</span>m <span class="token comment" spellcheck="true">// 全局休眠M队列</span>
+
+    gcwaiting  <span class="token builtin">uint32</span> <span class="token comment" spellcheck="true">// gc is waiting to run</span>
+    stopwait   <span class="token builtin">int32</span>
+    stopnote   note
+    sysmonwait <span class="token builtin">uint32</span>
+    sysmonnote note
+
+    <span class="token comment" spellcheck="true">// safepointFn should be called on each P at the next GC</span>
+    <span class="token comment" spellcheck="true">// safepoint if p.runSafePointFn is set.</span>
+    safePointFn   <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span>
+    safePointWait <span class="token builtin">int32</span>
+    safePointNote note
+
+    profilehz <span class="token builtin">int32</span> <span class="token comment" spellcheck="true">// cpu profiling rate</span>
+
+    procresizetime <span class="token builtin">int64</span> <span class="token comment" spellcheck="true">// nanotime() of last change to gomaxprocs</span>
+    totaltime      <span class="token builtin">int64</span> <span class="token comment" spellcheck="true">// ∫gomaxprocs dt up to procresizetime</span>
+
+    <span class="token comment" spellcheck="true">// sysmonlock protects sysmon's actions on the runtime.</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// Acquire and hold this mutex to block sysmon from interacting</span>
+    <span class="token comment" spellcheck="true">// with the rest of the runtime.</span>
+    sysmonlock mutex
+<span class="token punctuation">}</span></code></pre>
+<h1 id="字段和结构体"><a href="#字段和结构体" class="headerlink" title="字段和结构体"></a>字段和结构体</h1><h2 id="G状态"><a href="#G状态" class="headerlink" title="G状态"></a>G状态</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    <span class="token comment" spellcheck="true">// G status</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// 除了指示G的一般状态外，G状态还像goroutine堆栈上的锁一样（因此具有执行用户代码的能力）。</span>
+
+    <span class="token comment" spellcheck="true">// _Gidle表示此goroutine已分配，尚未初始化。</span>
+    _Gidle <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">// 0</span>
+
+    <span class="token comment" spellcheck="true">// _Grunnable表示此goroutine在运行队列中，当前未执行用户代码，没有堆栈。</span>
+    _Grunnable <span class="token comment" spellcheck="true">// 1</span>
+
+    <span class="token comment" spellcheck="true">// _Grunning表示此goroutine可以执行用户代码。</span>
+    <span class="token comment" spellcheck="true">// 该goroutine拥有堆栈，且不在运行队列中。</span>
+    <span class="token comment" spellcheck="true">// 它已分配一个M和一个P。</span>
+    _Grunning <span class="token comment" spellcheck="true">// 2</span>
+
+    <span class="token comment" spellcheck="true">// _Gsyscall表示此goroutine正在执行系统调用。</span>
+    <span class="token comment" spellcheck="true">// 它不执行用户代码，堆栈由该goroutine拥有，它不在运行队列中。</span>
+    <span class="token comment" spellcheck="true">// 它被分配了一个M。</span>
+    _Gsyscall <span class="token comment" spellcheck="true">// 3</span>
+
+    <span class="token comment" spellcheck="true">// _Gwaiting 意味着goroutine被runtime阻止。</span>
+    <span class="token comment" spellcheck="true">// 它不执行用户代码，它也不再运行队列，但应该被记录下来（例如：等待chan中的数据），必要时可以调用ready()恢复。</span>
+    <span class="token comment" spellcheck="true">// 除chan操作可以在适当的锁下读取或写入堆栈的某些部分外，不应该拥有该堆栈。</span>
+    _Gwaiting <span class="token comment" spellcheck="true">// 4</span>
+
+    <span class="token comment" spellcheck="true">// _Gmoribund_unused当前未使用，但已在gdb脚本中进行了硬编码。</span>
+    _Gmoribund_unused <span class="token comment" spellcheck="true">// 5</span>
+
+    <span class="token comment" spellcheck="true">// _Gdead表示此goroutine当前未使用。</span>
+    <span class="token comment" spellcheck="true">// 它有可能已退出，在空闲列表或刚被初始化。它不能执行用户代码。它可能拥有堆栈也可能不拥有堆栈。</span>
+    <span class="token comment" spellcheck="true">// G及其堆栈（如果有）由退出G或从空闲列表中获得G的M拥有。</span>
+    _Gdead <span class="token comment" spellcheck="true">// 6</span>
+
+    <span class="token comment" spellcheck="true">// _Genqueue_unused当前未使用。</span>
+    _Genqueue_unused <span class="token comment" spellcheck="true">// 7</span>
+
+    <span class="token comment" spellcheck="true">// _Gcopystack表示此goroutine的堆栈正在迁移。</span>
+    <span class="token comment" spellcheck="true">// 它不能执行用户代码，并且不再运行队列中。</span>
+    <span class="token comment" spellcheck="true">// 堆栈由将其放入_Gcopystack的goroutine拥有。</span>
+    _Gcopystack <span class="token comment" spellcheck="true">// 8</span>
+
+    <span class="token comment" spellcheck="true">// _Gscan与上述状态之一组合表示GC正在扫描堆栈（除_Grunning）。</span>
+    <span class="token comment" spellcheck="true">// goroutine未执行用户代码，并且堆栈由设置_Gscan位的goroutine拥有。</span>
+    <span class="token comment" spellcheck="true">// _Gscanrunning不同: 它用于短暂阻止状态转换，而GC则通知G扫描其自身的堆栈。否则就像_Grunning。</span>
+    <span class="token comment" spellcheck="true">// atomicstatus&amp;~Gscan 给出goroutine将在扫描完成时返回的状态。</span>
+    _Gscan         <span class="token operator">=</span> <span class="token number">0x1000</span>
+    _Gscanrunnable <span class="token operator">=</span> _Gscan <span class="token operator">+</span> _Grunnable <span class="token comment" spellcheck="true">// 0x1001</span>
+    _Gscanrunning  <span class="token operator">=</span> _Gscan <span class="token operator">+</span> _Grunning  <span class="token comment" spellcheck="true">// 0x1002</span>
+    _Gscansyscall  <span class="token operator">=</span> _Gscan <span class="token operator">+</span> _Gsyscall  <span class="token comment" spellcheck="true">// 0x1003</span>
+    _Gscanwaiting  <span class="token operator">=</span> _Gscan <span class="token operator">+</span> _Gwaiting  <span class="token comment" spellcheck="true">// 0x1004</span>
+<span class="token punctuation">)</span></code></pre>
+<h2 id="P状态"><a href="#P状态" class="headerlink" title="P状态"></a>P状态</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">const</span> <span class="token punctuation">(</span>
+    <span class="token comment" spellcheck="true">// P status</span>
+
+    <span class="token comment" spellcheck="true">// _Pidle表示不使用P来运行用户代码或调度程序。</span>
+    <span class="token comment" spellcheck="true">// 它在空闲的P列表中，可供调度程序使用，但可能只是在其他状态之间转换。</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// P由空闲列表或转换其状态的任何内容所拥有。它的运行队列为空。</span>
+    _Pidle <span class="token operator">=</span> <span class="token boolean">iota</span>
+
+    <span class="token comment" spellcheck="true">// _Prunning表示P由M拥有，并用于运行用户代码或调度程序。</span>
+    <span class="token comment" spellcheck="true">// 仅拥有此P的M允许从_Prunning更改P的状态。</span>
+    <span class="token comment" spellcheck="true">// M可以将P转换为_Pidle（如果没有更多工作要做），_Psyscall（进入系统调用时）或_Pgcstop（以停止GC）。</span>
+    <span class="token comment" spellcheck="true">// M也可以将P的所有权直接移交给另一个M（例如，调度锁定的G）。</span>
+    _Prunning
+
+    <span class="token comment" spellcheck="true">// _Psyscall表示P没有运行用户代码。</span>
+    <span class="token comment" spellcheck="true">// 它与系统调用中的M有亲缘关系，但不归其所有，并且可能被另一个M窃取。</span>
+    <span class="token comment" spellcheck="true">// 这类似于_Pidle，但使用轻量级转换并保持M相似性。</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// 必须通过CAS离开_Psyscall才能窃取或重新获得P。</span>
+    <span class="token comment" spellcheck="true">// 注意ABA危害：</span>
+    <span class="token comment" spellcheck="true">// 即使M在系统调用后成功将其原始P恢复为_Prunning，它也必须了解该P在此期间可能已被另一个M使用。</span>
+    _Psyscall
+
+    <span class="token comment" spellcheck="true">// _Pgcstop表示对STW(stop the world)暂停P并由STW的M拥有。</span>
+    <span class="token comment" spellcheck="true">// STW的M甚至在_Pgcstop中也继续使用其P。</span>
+    <span class="token comment" spellcheck="true">// 从_Prunning过渡到_Pgcstop会导致M释放其P并停放。</span>
+    <span class="token comment" spellcheck="true">//</span>
+    <span class="token comment" spellcheck="true">// P保留其运行队列，STW将使用非空运行队列在P上重新启动调度程序。</span>
+    _Pgcstop
+
+    <span class="token comment" spellcheck="true">// _Pdead表示不再使用P（GOMAXPROCS缩小），如果P的数量增加将会复用P。</span>
+    <span class="token comment" spellcheck="true">// 一个死掉的P大部分被剥夺了其资源，尽管还剩下一些东西（例如跟踪缓冲区）。</span>
+    _Pdead
+<span class="token punctuation">)</span></code></pre>
+<h2 id="runtime2-go-全局变量"><a href="#runtime2-go-全局变量" class="headerlink" title="runtime2.go 全局变量"></a>runtime2.go 全局变量</h2><pre class=" language-go"><code class="language-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    allglen    <span class="token builtin">uintptr</span> <span class="token comment" spellcheck="true">// allgs的长度</span>
+    allm       <span class="token operator">*</span>m      <span class="token comment" spellcheck="true">// 所有m的单链表</span>
+    allp       <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>p    <span class="token comment" spellcheck="true">// 所有的P列表，len(allp) == gomaxprocs，只能通过GOMAXPROCS()修改</span>
+    allpLock   mutex   <span class="token comment" spellcheck="true">// Protects P-less reads of allp and all writes</span>
+    gomaxprocs <span class="token builtin">int32</span>         <span class="token comment" spellcheck="true">// 最大P的数量</span>
+    ncpu       <span class="token builtin">int32</span>         <span class="token comment" spellcheck="true">// CPU数</span>
+    forcegc    forcegcstate
+    sched      schedt        <span class="token comment" spellcheck="true">// 调度者</span>
+    newprocs   <span class="token builtin">int32</span>
+
+    <span class="token comment" spellcheck="true">// Information about what cpu features are available.</span>
+    <span class="token comment" spellcheck="true">// Packages outside the runtime should not use these</span>
+    <span class="token comment" spellcheck="true">// as they are not an external api.</span>
+    <span class="token comment" spellcheck="true">// Set on startup in asm_{386,amd64}.s</span>
+    processorVersionInfo <span class="token builtin">uint32</span>
+    isIntel              <span class="token builtin">bool</span>
+    lfenceBeforeRdtsc    <span class="token builtin">bool</span>
+
+    goarm                <span class="token builtin">uint8</span> <span class="token comment" spellcheck="true">// set by cmd/link on arm systems</span>
+    framepointer_enabled <span class="token builtin">bool</span>  <span class="token comment" spellcheck="true">// set by cmd/link</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+    allgs    <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>g  <span class="token comment" spellcheck="true">// 所有g的单链表</span>
+    allglock mutex <span class="token comment" spellcheck="true">// 修改单链表锁</span>
+<span class="token punctuation">)</span></code></pre>
+<h2 id="sodug"><a href="#sodug" class="headerlink" title="sodug"></a>sodug</h2><pre><code>type hchan struct {
+    qcount   uint           // 队列元素总数
+    dataqsiz uint           // 循环队列的大小
+    buf      unsafe.Pointer // 指向dataqsiz元素数组
+    elemsize uint16
+    closed   uint32
+    elemtype *_type // element type
+    sendx    uint   // send index
+    recvx    uint   // receive index
+    recvq    waitq  // list of recv waiters
+    sendq    waitq  // list of send waiters
+
+    // lock保护hchan的所有字段，也保护sudog的所有字段在这个channel。
+    //
+    // 锁住此锁时，请勿更改另一个G的状态（特别是不要对G调用ready），因为这会因堆栈收缩而死锁。
+    lock mutex
+}
+
+type waitq struct {
+    first *sudog
+    last  *sudog
+}
+
+// sudog 表示可执行G的列表，一个G可能在多个sudog中，
+// 并且许多G可能正在等待同一个同步对象，因此一个对象可能有许多sudog。
+// 
+// sudog 由特殊的池分配，所以只能通过acquireSudog和releaseSudog来分配和释放sudog。
+type sudog struct {
+    // 由hchan.lock来保护以下字段，收缩栈依赖sudog的操作
+
+    g *g
+
+    next *sudog
+    prev *sudog
+    elem unsafe.Pointer // data element (may point to stack)
+
+    // 以下字段永远不能同时访问
+    // 对于channel，waitlink仅由g访问。
+    // 对于信号量，仅在持有semaRoot锁时才能访问所有字段（包括上述字段）。
+
+    acquiretime int64
+    releasetime int64
+    ticket      uint32
+
+    // isSelect表示g正在参与选择，因此必须对g.selectDone进行CAS操作才能wake-up竞争。
+    isSelect bool
+
+    parent   *sudog // semaRoot binary tree
+    waitlink *sudog // g.waiting list or semaRoot
+    waittail *sudog // semaRoot
+    c        *hchan // channel，引用chan的底层实现
+}</code></pre><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://learnku.com/articles/41728" target="_blank" rel="noopener">[典藏版] Golang 调度器 GMP 原理与调度全分析</a></li>
+<li><a href="http://ga0.github.io/golang/2015/09/20/golang-runtime-scheduler.html" target="_blank" rel="noopener">Golang调度器源码分析</a></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">djaigo</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://blog.djaigo.com/golang/golang-mpg-diao-du.html">https://blog.djaigo.com/golang/golang-mpg-diao-du.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">djaigo</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/mpg/">
+                                    <span class="chip bg-color">mpg</span>
+                                </a>
+                            
+                                <a href="/tags/infra/">
+                                    <span class="chip bg-color">infra</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">程序猿唯一赚钱方式!&lt;br/&gt;The only way to make money for code monkey!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/Screenshot_2018-11-27-18-28-43.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/Screenshot_2018-11-27-18-29-53.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Fri Aug 07 2020 19:40:47 GMT+0800',
+    owner: 'daihainidewo',
+    repo: 'gitment',
+    oauth: {
+        client_id: '45395aedbda925ff5cf5',
+        client_secret: 'b08e832c83bc762fd5d09947af1fdf559d3c52da'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/linux/linux-find-ming-ling.html">
+                    <div class="card-image">
+                        
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/golang.png" class="responsive-img" alt="linux-find命令">
+                        
+                        <span class="card-title">linux-find命令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            在linux中find是一个非常有用的命令，它可以快速查找指定目录下符合条件的文件。
+➜ find --help
+Usage: find [-H] [-L] [-P] [-Olevel] [-D help|tree|search|stat|
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/cmd/">
+                        <span class="chip bg-color">cmd</span>
+                    </a>
+                    
+                    <a href="/tags/command/">
+                        <span class="chip bg-color">command</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/wireshark/wireshark-jie-xi-zi-ding-yi-xie-yi.html">
+                    <div class="card-image">
+                        
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/golang.png" class="responsive-img" alt="wireshark解析自定义协议">
+                        
+                        <span class="card-title">wireshark解析自定义协议</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            lua脚本wireshark插件有代码固定的格式
+do
+    -- 定义协议
+    local PROTO = Proto('proto', 'Proto')
+
+    -- 定义协议字段
+    local field = Proto
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/wireshark/" class="post-category">
+                                    wireshark
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/lua/">
+                        <span class="chip bg-color">lua</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Djaigo</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAYAAADAQbwGAAAACXBIWXMAAAsTAAALEwEAmpwYAAA5z2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgICAgICAgICB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgICAgIDx4bXA6Q3JlYXRlRGF0ZT4yMDE5LTA5LTIzVDEyOjA5OjI4KzA4OjAwPC94bXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhtcDpNZXRhZGF0YURhdGU+MjAxOS0wOS0yM1QxMjowOToyOCswODowMDwveG1wOk1ldGFkYXRhRGF0ZT4KICAgICAgICAgPHhtcDpNb2RpZnlEYXRlPjIwMTktMDktMjNUMTI6MDk6MjgrMDg6MDA8L3htcDpNb2RpZnlEYXRlPgogICAgICAgICA8eG1wTU06SW5zdGFuY2VJRD54bXAuaWlkOjg0OTNiNTZlLWM2MmMtY2I0Zi1hMzBmLWM5ZDk3MGNjZTkyMjwveG1wTU06SW5zdGFuY2VJRD4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo5MmFhMDM0YS1lMDk3LTc3NDktYWI1YS03ZTJiMTI1MTk2ZjY8L3htcE1NOkRvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+eG1wLmRpZDo5MmFhMDM0YS1lMDk3LTc3NDktYWI1YS03ZTJiMTI1MTk2ZjY8L3htcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkhpc3Rvcnk+CiAgICAgICAgICAgIDxyZGY6U2VxPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5jcmVhdGVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDppbnN0YW5jZUlEPnhtcC5paWQ6OTJhYTAzNGEtZTA5Ny03NzQ5LWFiNWEtN2UyYjEyNTE5NmY2PC9zdEV2dDppbnN0YW5jZUlEPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6d2hlbj4yMDE5LTA5LTIzVDEyOjA5OjI4KzA4OjAwPC9zdEV2dDp3aGVuPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6c29mdHdhcmVBZ2VudD5BZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDo4NDkzYjU2ZS1jNjJjLWNiNGYtYTMwZi1jOWQ5NzBjY2U5MjI8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMTktMDktMjNUMTI6MDk6MjgrMDg6MDA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAoV2luZG93cyk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpTZXE+CiAgICAgICAgIDwveG1wTU06SGlzdG9yeT4KICAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9wbmc8L2RjOmZvcm1hdD4KICAgICAgICAgPHBob3Rvc2hvcDpDb2xvck1vZGU+MzwvcGhvdG9zaG9wOkNvbG9yTW9kZT4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgICAgPHRpZmY6WFJlc29sdXRpb24+NzIwMDAwLzEwMDAwPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjAwMDAvMTAwMDA8L3RpZmY6WVJlc29sdXRpb24+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDxleGlmOkNvbG9yU3BhY2U+NjU1MzU8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjIwPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjIyPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz4jh4n+AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAATMSURBVHjarNVbbBR1FMfx78zOzs5Od7v3btcuEmgFilyqgNdaBI1cAgUxIWCMikFEjRqJPGh8IRgDLxjReAliFEKMCglJIQSoNcolgjEQAbmUUqC7pbS73XZnd2d3ZmfHB7GKwfji7+08/D/5n+T/P0ewbZv/MxJAme4bRTVQBcZxOvcd4I5FL9YWLp1o/X7fz8+X9LL88GNTtwSnTNl9dtdXicaFS0CuB/pJX9gNQGjcmj/AW2QWsPqLF19vtfVOpaek4gj4Kew894H+Sdt7zY+MbQM+B/b886B4C0zp+Hhrx9Or2pfmileUcR4HK5XrrFZ6eOD+KMH7o9LKVQcfP7B5Qxvg+i8wXjqxfv/7O4ZZvnIsz8az+D49Q/q8RbrLYnjBJyyyTvHatmVs2WVin//sW0D5N7Dx6p63u1oWnGrxN0R5OXyK7h1ZxFF+LM2AUgUh4ufoK0dYqp4g+uBdPLpg78KBw1svAeNvAvNnu5CK+z1t573y8d7pzJuukTuZRbw6jOB34Rq0KB65jnNMCCWnk/ryGEvmGHRcnMj2Q1bMI+TdwTHP3HTDeOWn7zZVBDdIBaq1XrJ94LRMGCwi1KvI0/yI1/LIVEh169QFSyAIZHIiroi0CRgzAl45d/AJI5lsDnhkKLuwYzHCzbXksNEeCGEtj+NZ14T62hTEiErNtDD5ggG2TaxGhcTJWYM9R58bAVVPoDGrmYyNFEEJceCYijS7mvTC0VhJDeHXPIW91zG7h5DXNhN8fSo7t2WAKpomS+S7+ikmuuIjYGWwd2E2IzEprhG/R+aj7VX8sCFB04wYPtVL4UyGSn+J4qkM3uQQp9dfYPM2F9EmP5PrhkklS5iD55pHQFHK+7WsSPXABZbOsSibHsw9fYS+/gWxzokRcVCpkQjPjhHruERqy2nyhoMlrU686U60rITkFZ0jX8+t3t4ujr/cakXrWHGvxqa6CB8lGzF7zhBKdyL63OhnMmgNNSQDMb4R3VDtZ8V9/ZS9cfx3CqiBUXtHQBBr7KxNb5fGpMZu3nljGm+vbWGPNhmyJq2FNEG/yM69XnKoQIA1LynMaOiktxMoFqiUtakjoOQ3ppe9Ucw+k0T/WV5tdrGkvYqOfQXOiVOYO/EiMXeKclsdRkZn1ASVt+Ze5vrRyxRMBSUsI/nlCQCCbduUcsefTB/buEPvMyilTEhcoX5xE66oAlYaKy2R69fxjQnC6BAkUnTvPo/uDeMZ68Fdq+JrWD5TDsz/8U8Qh+B6avD0pg+tou5LHepDqrKpndmINahjFvKIqoISrEKQnaSPdlG2JHzT6zGLpH3jW5bJTrVdDsz/o+VSqgLoyWKfW1eiFV90dgPWcB5Ly4Iq45D9yG4whnLkExmU0SGUeJTSUIFiUrPdo3IY5AgGbjwbB4dxcPjNmru9tc5AjNJwhYolUbEcFAc0sCsY6WFynQMIDicIAsVrKZxukehDsbCsai/IqvbXxHaFZgAszvQe2mgkflshOwpVashFOW+AYOIoDVHWDbwTwjgUB4aeQ6wKIwRqr5al+i2KGnn3phVwIwXglczZ6Dp9eGBeyeyZedvEyMSKJngUvxiU3F60a1x1R/wFqabl5GBXf7t+JXNg9ENU/j4Phf97Sf0+ADr3CMhtMiuNAAAAAElFTkSuQmCC" style="vertical-align: text-bottom;" />
+                <a href="http://beian.miit.gov.cn/" target="_blank">陕ICP备16003471号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/djaigoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:dh979018013@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=979018013" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 979018013" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f8cc900e9b8c88ca4fb7bd163c8b37dc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

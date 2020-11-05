@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Djaigo blog</title>
+  
+  <subtitle>好好学习，天天向上</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.djaigo.com/"/>
+  <updated>2020-10-28T03:01:55.000Z</updated>
+  <id>https://blog.djaigo.com/</id>
+  
+  <author>
+    <name>Djaigo</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang-协程栈</title>
+    <link href="https://blog.djaigo.com/golang/golang-xie-cheng-zhan.html"/>
+    <id>https://blog.djaigo.com/golang/golang-xie-cheng-zhan.html</id>
+    <published>2020-10-28T03:01:55.000Z</published>
+    <updated>2020-10-28T03:01:55.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;golang栈的增长方向&lt;/p&gt;
+&lt;pre class=&quot; language-go&quot;&gt;&lt;code class=&quot;language-go&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;token
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="runtime" scheme="https://blog.djaigo.com/tags/runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-sar命令</title>
+    <link href="https://blog.djaigo.com/linux/linux-sar-ming-ling.html"/>
+    <id>https://blog.djaigo.com/linux/linux-sar-ming-ling.html</id>
+    <published>2020-10-14T11:50:16.000Z</published>
+    <updated>2020-10-14T11:50:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;sar简介&quot;&gt;&lt;a href=&quot;#sar简介&quot; class=&quot;headerlink&quot; title=&quot;sar简介&quot;&gt;&lt;/a&gt;sar简介&lt;/h1&gt;&lt;p&gt;centos安装sar命令&lt;/p&gt;
+&lt;pre class=&quot; language-sh&quot;&gt;&lt;code
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.djaigo.com/categories/linux/"/>
+    
+    
+      <category term="cmd" scheme="https://blog.djaigo.com/tags/cmd/"/>
+    
+      <category term="command" scheme="https://blog.djaigo.com/tags/command/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang 调度过程源码分析</title>
+    <link href="https://blog.djaigo.com/golang/golang-xie-cheng-diao-du-guan-li-yuan-ma-fen-xi.html"/>
+    <id>https://blog.djaigo.com/golang/golang-xie-cheng-diao-du-guan-li-yuan-ma-fen-xi.html</id>
+    <published>2020-10-12T08:15:17.000Z</published>
+    <updated>2020-10-12T08:15:17.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;golang 版本：go version go1.15.2 darwin/amd64&lt;/p&gt;
+&lt;p&gt;根据启动函数来分析golang MPG的生存周期，忽略cgo相关代码。&lt;/p&gt;
+&lt;h1 id=&quot;MPG&quot;&gt;&lt;a href=&quot;#MPG&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="runtime" scheme="https://blog.djaigo.com/tags/runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang MPG 有限状态机</title>
+    <link href="https://blog.djaigo.com/golang/golang-mpg-you-xian-zhuang-tai-ji.html"/>
+    <id>https://blog.djaigo.com/golang/golang-mpg-you-xian-zhuang-tai-ji.html</id>
+    <published>2020-09-29T09:54:01.000Z</published>
+    <updated>2020-09-29T09:54:01.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;去掉了cgo和GC的相关状态转化&lt;/p&gt;
+&lt;h1 id=&quot;P状态机&quot;&gt;&lt;a href=&quot;#P状态机&quot; class=&quot;headerlink&quot; title=&quot;P状态机&quot;&gt;&lt;/a&gt;P状态机&lt;/h1&gt;&lt;h1 id=&quot;G状态机&quot;&gt;&lt;a href=&quot;#G状态机&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="mpg" scheme="https://blog.djaigo.com/tags/mpg/"/>
+    
+      <category term="infra" scheme="https://blog.djaigo.com/tags/infra/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang MPG 场景源码剖析</title>
+    <link href="https://blog.djaigo.com/golang/golang-mpg-chang-jing-yuan-ma-pou-xi.html"/>
+    <id>https://blog.djaigo.com/golang/golang-mpg-chang-jing-yuan-ma-pou-xi.html</id>
+    <published>2020-09-29T09:50:35.000Z</published>
+    <updated>2020-09-29T09:50:35.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;场景分析&quot;&gt;&lt;a href=&quot;#场景分析&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="mpg" scheme="https://blog.djaigo.com/tags/mpg/"/>
+    
+      <category term="infra" scheme="https://blog.djaigo.com/tags/infra/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang内存管理</title>
+    <link href="https://blog.djaigo.com/golang/golang-nei-cun-guan-li.html"/>
+    <id>https://blog.djaigo.com/golang/golang-nei-cun-guan-li.html</id>
+    <published>2020-09-21T12:17:14.000Z</published>
+    <updated>2020-09-21T12:17:14.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script&gt;
+        document.querySelectorAll(&#39;.github-emoji&#39;)
+          .forEach(el =&gt; {
+            if (!el.dataset.src) { return; }
+       
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="infra" scheme="https://blog.djaigo.com/tags/infra/"/>
+    
+      <category term="memory" scheme="https://blog.djaigo.com/tags/memory/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-sed命令</title>
+    <link href="https://blog.djaigo.com/linux/linux-sed-ming-ling.html"/>
+    <id>https://blog.djaigo.com/linux/linux-sed-ming-ling.html</id>
+    <published>2020-09-17T10:18:17.000Z</published>
+    <updated>2020-09-17T10:18:17.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;sed是linux行文本处理命令，默认选项是&lt;code&gt;-e&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&quot; language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;➜ sed --help
+用法: sed [选项]...
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.djaigo.com/categories/linux/"/>
+    
+    
+      <category term="cmd" scheme="https://blog.djaigo.com/tags/cmd/"/>
+    
+      <category term="command" scheme="https://blog.djaigo.com/tags/command/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-find命令</title>
+    <link href="https://blog.djaigo.com/linux/linux-find-ming-ling.html"/>
+    <id>https://blog.djaigo.com/linux/linux-find-ming-ling.html</id>
+    <published>2020-09-16T10:18:17.000Z</published>
+    <updated>2020-09-16T10:18:17.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在linux中find是一个非常有用的命令，它可以快速查找指定目录下符合条件的文件。&lt;/p&gt;
+&lt;pre class=&quot; language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;➜ find --help
+Usage: find [-H] [-L]
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.djaigo.com/categories/linux/"/>
+    
+    
+      <category term="cmd" scheme="https://blog.djaigo.com/tags/cmd/"/>
+    
+      <category term="command" scheme="https://blog.djaigo.com/tags/command/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang MPG调度</title>
+    <link href="https://blog.djaigo.com/golang/golang-mpg-diao-du.html"/>
+    <id>https://blog.djaigo.com/golang/golang-mpg-diao-du.html</id>
+    <published>2020-08-07T11:40:47.000Z</published>
+    <updated>2020-08-07T11:40:47.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;MPG&quot;&gt;&lt;a href=&quot;#MPG&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="mpg" scheme="https://blog.djaigo.com/tags/mpg/"/>
+    
+      <category term="infra" scheme="https://blog.djaigo.com/tags/infra/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wireshark解析自定义协议</title>
+    <link href="https://blog.djaigo.com/wireshark/wireshark-jie-xi-zi-ding-yi-xie-yi.html"/>
+    <id>https://blog.djaigo.com/wireshark/wireshark-jie-xi-zi-ding-yi-xie-yi.html</id>
+    <published>2020-07-23T07:10:11.000Z</published>
+    <updated>2020-07-23T07:10:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;lua脚本&quot;&gt;&lt;a href=&quot;#lua脚本&quot; class=&quot;headerlink&quot; title=&quot;lua脚本&quot;&gt;&lt;/a&gt;lua脚本&lt;/h1&gt;&lt;p&gt;wireshark插件有代码固定的格式&lt;/p&gt;
+&lt;pre class=&quot; language-lua&quot;&gt;&lt;code
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wireshark" scheme="https://blog.djaigo.com/categories/wireshark/"/>
+    
+    
+      <category term="lua" scheme="https://blog.djaigo.com/tags/lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务注册与发现</title>
+    <link href="https://blog.djaigo.com/service-discovery/fu-wu-zhu-ce-yu-fa-xian.html"/>
+    <id>https://blog.djaigo.com/service-discovery/fu-wu-zhu-ce-yu-fa-xian.html</id>
+    <published>2020-07-13T07:41:19.000Z</published>
+    <updated>2020-07-13T07:41:19.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h1&gt;&lt;p&gt;聊起微服务的服务注册与发现，很多人立马就会脱口而出 zk、etcd、consul、eureka 这些组件，进而聊到 CAP
+        
+      
+    
+    </summary>
+    
+    
+      <category term="service discovery" scheme="https://blog.djaigo.com/categories/service-discovery/"/>
+    
+    
+      <category term="etcd" scheme="https://blog.djaigo.com/tags/etcd/"/>
+    
+      <category term="zk" scheme="https://blog.djaigo.com/tags/zk/"/>
+    
+      <category term="zookeeper" scheme="https://blog.djaigo.com/tags/zookeeper/"/>
+    
+      <category term="consul" scheme="https://blog.djaigo.com/tags/consul/"/>
+    
+      <category term="confd" scheme="https://blog.djaigo.com/tags/confd/"/>
+    
+      <category term="eureka" scheme="https://blog.djaigo.com/tags/eureka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>protocol buffer</title>
+    <link href="https://blog.djaigo.com/protobuf/protocol-buffer.html"/>
+    <id>https://blog.djaigo.com/protobuf/protocol-buffer.html</id>
+    <published>2020-04-23T07:32:37.000Z</published>
+    <updated>2020-04-23T07:32:37.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;code&gt;protocol
+        
+      
+    
+    </summary>
+    
+    
+      <category term="protobuf" scheme="https://blog.djaigo.com/categories/protobuf/"/>
+    
+    
+      <category term="protobuf" scheme="https://blog.djaigo.com/tags/protobuf/"/>
+    
+      <category term="proto3" scheme="https://blog.djaigo.com/tags/proto3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang调用syscall</title>
+    <link href="https://blog.djaigo.com/golang/golang-diao-yong-syscall.html"/>
+    <id>https://blog.djaigo.com/golang/golang-diao-yong-syscall.html</id>
+    <published>2020-04-17T02:04:41.000Z</published>
+    <updated>2020-04-17T02:04:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;环境说明&quot;&gt;&lt;a href=&quot;#环境说明&quot; class=&quot;headerlink&quot; title=&quot;环境说明&quot;&gt;&lt;/a&gt;环境说明&lt;/h1&gt;&lt;p&gt;OS：linux&lt;br&gt;ARCH：amd64&lt;br&gt;GOVERSION：1.14.1&lt;/p&gt;
+&lt;h1
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="syscall" scheme="https://blog.djaigo.com/tags/syscall/"/>
+    
+      <category term="linux" scheme="https://blog.djaigo.com/tags/linux/"/>
+    
+      <category term="syscall6" scheme="https://blog.djaigo.com/tags/syscall6/"/>
+    
+      <category term="rawsyscall" scheme="https://blog.djaigo.com/tags/rawsyscall/"/>
+    
+      <category term="rawsyscall6" scheme="https://blog.djaigo.com/tags/rawsyscall6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang调用IPC</title>
+    <link href="https://blog.djaigo.com/golang/golang-diao-yong-ipc.html"/>
+    <id>https://blog.djaigo.com/golang/golang-diao-yong-ipc.html</id>
+    <published>2020-04-15T01:26:21.000Z</published>
+    <updated>2020-04-15T01:26:21.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;进程间通信（IPC，Inter-Process
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="ipc" scheme="https://blog.djaigo.com/tags/ipc/"/>
+    
+      <category term="shmems" scheme="https://blog.djaigo.com/tags/shmems/"/>
+    
+      <category term="queues" scheme="https://blog.djaigo.com/tags/queues/"/>
+    
+      <category term="semaphores" scheme="https://blog.djaigo.com/tags/semaphores/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux软链接和硬链接</title>
+    <link href="https://blog.djaigo.com/linux/linux-ruan-lian-jie-he-ying-lian-jie.html"/>
+    <id>https://blog.djaigo.com/linux/linux-ruan-lian-jie-he-ying-lian-jie.html</id>
+    <published>2020-04-09T05:00:43.000Z</published>
+    <updated>2020-04-09T05:00:43.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;我们知道文件都有文件名与数据，这在 Linux 上被分成两个部分：用户数据 (user data) 与元数据 (metadata)。用户数据，即文件数据块 (data
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.djaigo.com/categories/linux/"/>
+    
+    
+      <category term="link" scheme="https://blog.djaigo.com/tags/link/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang TCP Socket编程</title>
+    <link href="https://blog.djaigo.com/golang/golang-de-tcpsocket-bian-cheng.html"/>
+    <id>https://blog.djaigo.com/golang/golang-de-tcpsocket-bian-cheng.html</id>
+    <published>2020-04-09T04:22:55.000Z</published>
+    <updated>2020-04-09T04:22:55.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;golang版本：1.14.1&lt;br&gt;主要是对golang net包的Conn接口函数进行测试，这里只是分析常见的几个错误，如果要了解详细的错误可以查看man手册。&lt;/p&gt;
+&lt;h1 id=&quot;Dial&quot;&gt;&lt;a href=&quot;#Dial&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="tcp" scheme="https://blog.djaigo.com/tags/tcp/"/>
+    
+      <category term="net" scheme="https://blog.djaigo.com/tags/net/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis大key处理</title>
+    <link href="https://blog.djaigo.com/redis/redis-da-key-chu-li.html"/>
+    <id>https://blog.djaigo.com/redis/redis-da-key-chu-li.html</id>
+    <published>2020-04-02T10:14:10.000Z</published>
+    <updated>2020-04-02T10:14:10.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Redis是一个高性能的key-value数据库。性能的关键点在于使用内存存储和单进程操作，如果Redis中存储了一个大key在内存使用和操作上都会有很大的风险。&lt;/p&gt;
+&lt;h1 id=&quot;大key的风险：&quot;&gt;&lt;a href=&quot;#大key的风险：&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="redis" scheme="https://blog.djaigo.com/categories/redis/"/>
+    
+    
+      <category term="redis" scheme="https://blog.djaigo.com/tags/redis/"/>
+    
+      <category term="key" scheme="https://blog.djaigo.com/tags/key/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>etcdctl命令行交互</title>
+    <link href="https://blog.djaigo.com/etcd/etcdctl-ming-ling-xing-jiao-hu.html"/>
+    <id>https://blog.djaigo.com/etcd/etcdctl-ming-ling-xing-jiao-hu.html</id>
+    <published>2020-03-24T01:39:09.000Z</published>
+    <updated>2020-03-24T01:39:09.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;etcd 是一个分布式一致性键值存储，用于共享配置和服务发现，专注于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;简单：良好定义的，面向用户的API
+        
+      
+    
+    </summary>
+    
+    
+      <category term="etcd" scheme="https://blog.djaigo.com/categories/etcd/"/>
+    
+    
+      <category term="cmd" scheme="https://blog.djaigo.com/tags/cmd/"/>
+    
+      <category term="etcd" scheme="https://blog.djaigo.com/tags/etcd/"/>
+    
+      <category term="etcdctl" scheme="https://blog.djaigo.com/tags/etcdctl/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang 编译指示</title>
+    <link href="https://blog.djaigo.com/golang/golang-bian-yi-zhi-shi.html"/>
+    <id>https://blog.djaigo.com/golang/golang-bian-yi-zhi-shi.html</id>
+    <published>2020-03-15T02:09:36.000Z</published>
+    <updated>2020-11-03T16:00:00.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;编译指示&quot;&gt;&lt;a href=&quot;#编译指示&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="golang" scheme="https://blog.djaigo.com/categories/golang/"/>
+    
+    
+      <category term="compile" scheme="https://blog.djaigo.com/tags/compile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux watch命令</title>
+    <link href="https://blog.djaigo.com/linux/linux-watch-ming-ling.html"/>
+    <id>https://blog.djaigo.com/linux/linux-watch-ming-ling.html</id>
+    <published>2020-01-15T02:09:36.000Z</published>
+    <updated>2020-01-14T16:00:00.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;watch 是监视某个shell命令控制台输出。&lt;/p&gt;
+&lt;pre class=&quot; language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Usage:
+ watch [options] command
+
+Options:
+  -b,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.djaigo.com/categories/linux/"/>
+    
+    
+      <category term="cmd" scheme="https://blog.djaigo.com/tags/cmd/"/>
+    
+      <category term="command" scheme="https://blog.djaigo.com/tags/command/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,1371 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="redis conf 说明, Djaigo blog">
+    <meta name="description" content="blog go golang program IT">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153792940-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-153792940-1');
+</script>
+
+
+    <title>redis conf 说明 | Djaigo blog</title>
+    <link rel="icon" type="image/png" href="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Djaigo blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Djaigo blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/icon.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Djaigo blog</div>
+        <div class="logo-desc">
+            
+            blog go golang program IT
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://img-1251474779.cos.ap-beijing.myqcloud.com/redis.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">redis conf 说明</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                            <a href="/tags/config/">
+                                <span class="chip bg-color">config</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/redis/" class="post-category">
+                                redis
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-12-10
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2019-12-10
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    28 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>最新Redis配置文件获取<a href="http://download.redis.io/redis-stable/redis.conf" target="_blank" rel="noopener">redis.conf</a></p>
+<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p>启动Redis启动。</p>
+<pre class=" language-sh"><code class="language-sh">$ ./redis-server /path/to/redis.conf</code></pre>
+<p>配置文件单位说明，单位不区分大小写。</p>
+<pre class=" language-sh"><code class="language-sh"># 1k => 1000 bytes
+# 1kb => 1024 bytes
+# 1m => 1000000 bytes
+# 1mb => 1024 * 1024 bytes
+# 1g => 1000000000 bytes
+# 1gb => 1024 * 1024 * 1024 bytes</code></pre>
+<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include</h1><p><code>include</code>可以引入其他的配置文件，且不会被<code>CONFIG REWRITE</code>命令复写。Redis总是使用最后处理的行作为配置指令的值，最好在文件开始的时候<code>include</code>，避免运行时复写配置。如果想用<code>include</code>覆盖之前的配置可以放在文件末尾。</p>
+<pre class=" language-sh"><code class="language-sh"># include /path/to/local.conf
+# include /path/to/other.conf</code></pre>
+<h1 id="module"><a href="#module" class="headerlink" title="module"></a>module</h1><p>在启动时加载模块，如果无法加载，Redis会<code>abort</code>，可以同时加载多个模块。</p>
+<pre class=" language-sh"><code class="language-sh"># loadmodule /path/to/my_module.so
+# loadmodule /path/to/other_module.so</code></pre>
+<h1 id="network"><a href="#network" class="headerlink" title="network"></a>network</h1><h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>默认地，如果没有指定<code>bind</code>指令，Redis监听监听服务器上所有可用网络接口的连接。可以使用<code>bind</code>配置指令只侦听一个或多个选定的网卡接口，后跟一个或多个IP地址。<br>如果不指定bind指定是一件很危险的事，所以Redis默认指定本地的环回地址。</p>
+<pre class=" language-sh"><code class="language-sh"># bind 192.168.1.100 10.0.0.1
+bind 127.0.0.1 ::1</code></pre>
+<h2 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected-mode"></a>protected-mode</h2><p>保护模式是一层安全保护，以避免Redis实例在Internet上保持打开状态被访问和利用。<br>当保护模式打开，并且：</p>
+<ul>
+<li>Redis未<code>bind</code>到一组地址</li>
+<li>没有配置密码</li>
+</ul>
+<p>Redis只能接受来自IPv4和IPv6环回地址（127.0.0.1和::1）、Unix域套接字的连接。<br>保护模式默认是打开的。如果想其他地址访问Redis没有使用密码，或没有使用bind指定网络接口可以关闭保护模式。</p>
+<pre class=" language-sh"><code class="language-sh">protected-mode yes</code></pre>
+<h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><p>接受指定端口的连接。如果指定为0，Redis不会监听TCP socket。</p>
+<pre class=" language-sh"><code class="language-sh">port 6379</code></pre>
+<h2 id="tcp-backlog"><a href="#tcp-backlog" class="headerlink" title="tcp-backlog"></a>tcp-backlog</h2><p>TCP listen()函数的backlog参数，挂起连接队列的最大长度。</p>
+<pre class=" language-sh"><code class="language-sh">tcp-backlog 511</code></pre>
+<h2 id="Unix-socket"><a href="#Unix-socket" class="headerlink" title="Unix socket"></a>Unix socket</h2><p>指定<code>Unix socket</code>的路径，Redis默认不监听<code>Unix socket</code>。</p>
+<pre class=" language-sh"><code class="language-sh"># unixsocket /tmp/redis.sock
+# unixsocketperm 700</code></pre>
+<h2 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h2><p>设置连接多少秒没有使用后断开连接，0表示不启用。</p>
+<pre class=" language-sh"><code class="language-sh">timeout 0</code></pre>
+<h2 id="TCP-keepalive"><a href="#TCP-keepalive" class="headerlink" title="TCP keepalive"></a>TCP keepalive</h2><p>如果非零，使用SO_KEEPALIVE发送TCP ACK，来保活连接。<br>这样做有两个理由：</p>
+<ul>
+<li>检测对端状态</li>
+<li></li>
+</ul>
+<p>在Linux上，每隔指定的值（单位秒）都会发送TCP ACK，如果需要关闭连接则需要两倍这个时间。<br>其他内核取决于内核配置。<br>Redis默认300秒。</p>
+<pre class=" language-sh"><code class="language-sh">tcp-keepalive 300</code></pre>
+<h1 id="general"><a href="#general" class="headerlink" title="general"></a>general</h1><h2 id="daemonize"><a href="#daemonize" class="headerlink" title="daemonize"></a>daemonize</h2><p>Redis默认是不作为<code>daemon</code>运行，可以使用<code>yes</code>启动该选项。<br>Redis在启用指令后会在<code>/var/run/redis.pid</code>产生<code>pid</code>文件。</p>
+<pre class=" language-sh"><code class="language-sh">daemonize no</code></pre>
+<h2 id="supervised"><a href="#supervised" class="headerlink" title="supervised"></a>supervised</h2><p>如果使用upstart或者systemd启动Redis，可以使用supervised指令进行交互。<br>选项：</p>
+<ul>
+<li>no - 不使用supervision交互</li>
+<li>upstart - 让Redis进入<code>SIGSTOP</code>模式</li>
+<li>systemd - 向<code>$NOTIFY_SOCKET</code>写入<code>READY=1</code></li>
+<li>auto - 基于环境变量<code>UPSTART_JOB</code>或 <code>NOTIFY_SOCKET</code>来设置upstart还是systemd模式</li>
+</ul>
+<p>supervised只表示进程已经就绪，并不持续supervisor。</p>
+<pre class=" language-sh"><code class="language-sh">supervised no</code></pre>
+<h2 id="pidfile"><a href="#pidfile" class="headerlink" title="pidfile"></a>pidfile</h2><p>如果指定了pidfile，那么Redis将会在启动的时候写入，退出的时候删除。<br>当Redis启动是使用非daemonized，配置中没有指定pidfile，则不会有pidfile创建；当Redis使用daemonized启动时，即使没有指定pidfile，也会创建，默认是<code>/var/run/redis.pid</code>。<br>如果Redis无法创建pidfile，也不会产生任何影响，Redis依旧可以正常启动和运行。</p>
+<pre class=" language-sh"><code class="language-sh">pidfile /var/run/redis_6379.pid</code></pre>
+<h2 id="loglevel"><a href="#loglevel" class="headerlink" title="loglevel"></a>loglevel</h2><p>设置日志等级：</p>
+<ul>
+<li>debug，对开发测试有用</li>
+<li>verbose，一些有用的信息，不像debug那么杂乱</li>
+<li>notice，一般生产日志</li>
+<li>warning，记录关键信息</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">loglevel notice</code></pre>
+<h2 id="logfile"><a href="#logfile" class="headerlink" title="logfile"></a>logfile</h2><p>指定日志文件名，空字符串表示Redis日志强制输出到标准输出。如果使用daemonized并且把日志输出到标准输出，则日志会被发送到<code>/dev/null</code>。</p>
+<pre class=" language-sh"><code class="language-sh">logfile ""</code></pre>
+<h2 id="syslog"><a href="#syslog" class="headerlink" title="syslog"></a>syslog</h2><h3 id="enabled"><a href="#enabled" class="headerlink" title="enabled"></a>enabled</h3><p>将日志输出到system logger，指定<code>syslog-enabled</code>为<code>yes</code>，可以按照需求添加其他参数。</p>
+<pre class=" language-sh"><code class="language-sh"># syslog-enabled no</code></pre>
+<h3 id="ident"><a href="#ident" class="headerlink" title="ident"></a>ident</h3><p>指定syslog标识。</p>
+<pre class=" language-sh"><code class="language-sh"># syslog-ident redis</code></pre>
+<h3 id="facility"><a href="#facility" class="headerlink" title="facility"></a>facility</h3><p>指定syslog的<code>facility</code>，必须是<code>USER</code>或介于<code>LOCAL0-LOCAL7</code>。</p>
+<pre class=" language-sh"><code class="language-sh"># syslog-facility local0</code></pre>
+<h2 id="databases"><a href="#databases" class="headerlink" title="databases"></a>databases</h2><p>设置Redis数据库的数量，默认<code>DB</code>是0，可以使用<code>SELECT</code>选择<code>dbid</code>介于<code>0-databases-1</code>。</p>
+<pre class=" language-sh"><code class="language-sh">databases 16</code></pre>
+<h2 id="show-logo"><a href="#show-logo" class="headerlink" title="show logo"></a>show logo</h2><p>默认在Redis启动的时候打印<code>ASCII logo</code>，仅在log输出在标准输出或标准输出是TTY的时候。只有在交互式的时候才显示<code>logo</code>。</p>
+<pre class=" language-sh"><code class="language-sh">always-show-logo yes</code></pre>
+<h1 id="snapshotting"><a href="#snapshotting" class="headerlink" title="snapshotting"></a>snapshotting</h1><h2 id="save"><a href="#save" class="headerlink" title="save"></a>save</h2><p>数据库快照，将Redis数据保存到disk，命令<code>save second changes</code>。<br>当指定秒和写操作次数同时满足的时候写入disk。<br>可以通过注释掉save来禁用快照，也可以使用<code>save ""</code>来禁用已经设置的快照选项。<br>示例表示：</p>
+<ul>
+<li>900秒（15分钟）至少有一个键改动</li>
+<li>300秒（5分钟）至少有10个键改动</li>
+<li>60秒（1分钟）至少有10000个键改动<pre class=" language-sh"><code class="language-sh">save 900 1
+save 300 10
+save 60 10000</code></pre>
+</li>
+</ul>
+<h2 id="stop-writes-on-bgsave-error"><a href="#stop-writes-on-bgsave-error" class="headerlink" title="stop-writes-on-bgsave-error"></a>stop-writes-on-bgsave-error</h2><p>当启动RDB快照时，Redis会停止写入，并且最后一次后台保存会失败。</p>
+<pre class=" language-sh"><code class="language-sh">stop-writes-on-bgsave-error yes</code></pre>
+<h2 id="rdbcompression"><a href="#rdbcompression" class="headerlink" title="rdbcompression"></a>rdbcompression</h2><p>当使用dump .rdb数据库时，是否使用LZF压缩字符串对象</p>
+<pre class=" language-sh"><code class="language-sh">rdbcompression yes</code></pre>
+<h2 id="rdbchecksum"><a href="#rdbchecksum" class="headerlink" title="rdbchecksum"></a>rdbchecksum</h2><p>CRC64校验和存放于RDB文件的末尾，这可以抵抗损坏，但是有性能问题，可以禁用。</p>
+<pre class=" language-sh"><code class="language-sh">rdbchecksum yes</code></pre>
+<h2 id="dbfilename"><a href="#dbfilename" class="headerlink" title="dbfilename"></a>dbfilename</h2><p>指定dump文件</p>
+<pre class=" language-sh"><code class="language-sh">dbfilename dump.rdb</code></pre>
+<h2 id="dir"><a href="#dir" class="headerlink" title="dir"></a>dir</h2><p>指定工作目录，<code>dbfilename</code>指定的文件将会在<code>dir</code>中创建，只追加的文件也在此目录中创建。<br><code>dir</code>必须指定一个目录，非文件路径。</p>
+<pre class=" language-sh"><code class="language-sh">dir ./</code></pre>
+<h1 id="replication"><a href="#replication" class="headerlink" title="replication"></a>replication</h1><h2 id="replicaof"><a href="#replicaof" class="headerlink" title="replicaof"></a>replicaof</h2><p><code>Master-Replica</code>拷贝，使用replicaof让一个Redis实例复制另一个Redis实例。<br>相关概念：</p>
+<ul>
+<li>Redis复制是异步的，如果一个主Redis实例没有与给定数量的副本连接，那么可以配置他停止接收写操作</li>
+<li>如果复制链接丢失的时间相对较少，Redis副本可以与主服务器执行部分重新同步。根据需要，您可能需要使用合理的值配置复制积压工作的大小（请参阅此文件的下一节）。</li>
+<li>复制是一个自动的过程，网络分区副本自动尝试重新连接到主服务器，并与它们重新同步。</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh"># replicaof masterip masterport</code></pre>
+<h2 id="masterauth"><a href="#masterauth" class="headerlink" title="masterauth"></a>masterauth</h2><p>如果master有密码（使用requirepass配置），副本在复制的之前必须要验证密码，否则将拒绝复制。</p>
+<pre class=" language-sh"><code class="language-sh"># masterauth <master-password></code></pre>
+<h2 id="replica-serve-stale-data"><a href="#replica-serve-stale-data" class="headerlink" title="replica-serve-stale-data"></a>replica-serve-stale-data</h2><p>当副本与master断开连接，或当复制正在进行时，副本可以以两种不同的方式发挥做用：</p>
+<ul>
+<li>如果将<code>replica-serve-stale-data</code>设置成<code>yes</code>，副本将仍然回复客户端的请求，可能数据已过期，或者为空</li>
+<li>如果将<code>replica-serve-stale-data</code>设置成<code>no</code>，副本将用<code>SYNC with master in progress</code>回复所有请求，除了<code>INFO</code>，<code>replicaOF</code>，<code>AUTH</code>，<code>PING</code>，<code>SHUTDOWN</code>，<code>REPLCONF</code>，<code>ROLE</code>，<code>CONFIG</code>，<code>SUBSCRIBE</code>，<code>UNSUBSCRIBE</code>，<code>PSUBSCRIBE</code>，<code>PUNSUBSCRIBE</code>，<code>PUBLISH</code>，<code>PUBSUB</code>，<code>COMMAND</code>，<code>POST</code>，<code>HOST:</code>，<code>LATENCY</code></li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">replica-serve-stale-data yes</code></pre>
+<h2 id="replica-read-only"><a href="#replica-read-only" class="headerlink" title="replica-read-only"></a>replica-read-only</h2><p>设置副本实例是否可以写，默认副本是只读的。副本仍可以执行所有管理命令，可以使用<code>rename-command</code>遮蔽这些管理命令。</p>
+<pre class=" language-sh"><code class="language-sh">replica-read-only yes</code></pre>
+<h2 id="repl-diskless-sync"><a href="#repl-diskless-sync" class="headerlink" title="repl-diskless-sync"></a>repl-diskless-sync</h2><p>新的复制副本和重新连接的复制副本无法继续仅接收差异的复制过程，需要执行所谓的“完全同步”。RDB文件从主服务器传输到副本服务器。<br>传输可以通过两种不同的方式进行：</p>
+<ul>
+<li>磁盘支持，Redis主服务器创建一个新进程，将RDB文件写入磁盘，稍后，父进程将文件以递增方式传输到副本。</li>
+<li>无磁盘，Redis主服务器创建一个新进程，将RDB文件写入副本套接字，不通过磁盘。</li>
+</ul>
+<p>使用磁盘备份复制，在生成RDB文件的同时，可以在生成RDB文件的当前子级完成工作后，将更多的副本排队并与RDB文件一起提供服务。<br>在无盘复制中，一旦传输开始，到达的新副本将排队，当当前副本终止时，将开始新的传输。<code>master</code>实例机会在开始传输之前等待一段可配置的时间（以秒为单位），以希望多个副本能够到达，并且可以并行传输。<br>使用低速磁盘和快速（大带宽）网络，无盘复制工作得更好。</p>
+<pre class=" language-sh"><code class="language-sh">repl-diskless-sync no</code></pre>
+<h2 id="repl-diskless-sync-delay"><a href="#repl-diskless-sync-delay" class="headerlink" title="repl-diskless-sync-delay"></a>repl-diskless-sync-delay</h2><p>启动无盘复制时，可以配置服务器的等待延迟，这一点很重要，因为一旦传输开始，就不可能为到达的新副本提供服务，这些副本将排队等待下一次RDB传输，因此服务器将等待一段延迟，以便让更多副本到达。<br>默认5秒，设置为0表示禁用</p>
+<pre class=" language-sh"><code class="language-sh">repl-diskless-sync-delay 5</code></pre>
+<h2 id="repl-ping-replica-period"><a href="#repl-ping-replica-period" class="headerlink" title="repl-ping-replica-period"></a>repl-ping-replica-period</h2><p>副本以预先定义的间隔向服务器发送ping。可以使用<code>repl-ping-replica-period</code>选项更改此间隔。默认值为10秒。</p>
+<pre class=" language-sh"><code class="language-sh"># repl-ping-replica-period 10</code></pre>
+<h2 id="repl-timeout"><a href="#repl-timeout" class="headerlink" title="repl-timeout"></a>repl-timeout</h2><p>以下情况会复制超时：</p>
+<ul>
+<li>从副本角度看，同步期间的批量传输I/O。</li>
+<li>从副本角度看，master实例超时。</li>
+<li>从master实例看，复制超时。</li>
+</ul>
+<p>确保<code>repl-timeout</code>比<code>repl-ping-replica-period</code>大，否则每次主服务器和副本之间的通信量低时都会检测到超时。</p>
+<pre class=" language-sh"><code class="language-sh"># repl-timeout 60</code></pre>
+<h2 id="repl-disable-tcp-nodelay"><a href="#repl-disable-tcp-nodelay" class="headerlink" title="repl-disable-tcp-nodelay"></a>repl-disable-tcp-nodelay</h2><p>在副本发送<code>SYNC</code>后禁用<code>TCP_NODELAY</code>？<br>如果选择<code>yes</code>，Redis会占用少量带宽发送少量TCP包给副本，但这可能会增加副本同步延迟，使用Linux内核默认配置最多可延迟40毫秒。<br>如果选择<code>no</code>，延迟会减少，但是会占用更多带宽用于复制。<br>默认选择<code>no</code>，但是在非常高流量下或者master和副本之间有多跳时，<code>yes</code>也是不错的选择。</p>
+<pre class=" language-sh"><code class="language-sh">repl-disable-tcp-nodelay no</code></pre>
+<h2 id="repl-backlog-size"><a href="#repl-backlog-size" class="headerlink" title="repl-backlog-size"></a>repl-backlog-size</h2><p>设置副本<code>backlog</code>大小，<code>backlog</code>是一个缓冲区，当副本断开连接一段时间后，它会累积副本数据，因此当副本希望再次重新连接时，通常不需要完全重新同步，部分重新同步就足够了，只需传递断开连接时副本丢失的数据部分。只有在至少连接了一个副本后，才会分配积压工作。</p>
+<pre class=" language-sh"><code class="language-sh">#repl-backlog-size 1mb</code></pre>
+<h2 id="repl-backlog-ttl"><a href="#repl-backlog-ttl" class="headerlink" title="repl-backlog-ttl"></a>repl-backlog-ttl</h2><p>当master不在连接副本一段时间后释放backlog，该选项设置最后一个断开连接的副本后多久释放backlog，单位秒。如果为0，则永不释放。副本不会释放backlog，所以总是积压。</p>
+<pre class=" language-sh"><code class="language-sh"># repl-backlog-ttl 3600</code></pre>
+<h2 id="replica-priority"><a href="#replica-priority" class="headerlink" title="replica-priority"></a>replica-priority</h2><p>副本优先级，当master不在工作时，升级优先级编号低的成为master。当设置成0时，表示无法变成master。默认情况下优先级为100。</p>
+<pre class=" language-sh"><code class="language-sh">replica-priority 100</code></pre>
+<h2 id="min-replicas-to-write"><a href="#min-replicas-to-write" class="headerlink" title="min-replicas-to-write"></a>min-replicas-to-write</h2><p>如果小于指定副本数量，并且通信小于指定时间，master会停止写入操作。副本必须都处于在线状态。其中一个选项为0表示禁用。默认禁用。<br>示例表示，3个副本并且滞后10秒。</p>
+<pre class=" language-sh"><code class="language-sh"># min-replicas-to-write 3
+# min-replicas-max-lag 10</code></pre>
+<h2 id="replica-announce-ip"><a href="#replica-announce-ip" class="headerlink" title="replica-announce-ip"></a>replica-announce-ip</h2><p>Redis master可以通过指定副本地址连接副本，Redis Sentinel可以发现副本实例。<br>复制副本通常报告的列出的IP和地址是通过以下方式获得的：</p>
+<ul>
+<li>IP，通过检查复制副本用于与主服务器连接的套接字的对等地址，可以自动检测该地址。</li>
+<li>port，在复制握手期间，该端口由副本通信，通常是副本用来侦听连接的端口。</li>
+</ul>
+<p>但是，当使用端口转发或网络地址转换（NAT）时，复制副本实际上可以通过不同的IP和端口对访问。副本可以使用以下两个选项向其主服务器报告一组特定的IP和端口，以便信息和角色都报告这些值。</p>
+<pre class=" language-sh"><code class="language-sh"># replica-announce-ip 5.5.5.5
+# replica-announce-port 1234</code></pre>
+<h1 id="security"><a href="#security" class="headerlink" title="security"></a>security</h1><h2 id="requirepass"><a href="#requirepass" class="headerlink" title="requirepass"></a>requirepass</h2><p>设置密码，客户端在使用的时候需要使用<code>AUTH</code>鉴权。</p>
+<pre class=" language-sh"><code class="language-sh"># requirepass foobared</code></pre>
+<h2 id="rename-command"><a href="#rename-command" class="headerlink" title="rename-command"></a>rename-command</h2><p>重命名命令。如果设置为空表示禁用命令。修改命令可能会在AOF模式或传输到副本中引发问题。</p>
+<pre class=" language-sh"><code class="language-sh"># rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52
+# rename-command CONFIG ""</code></pre>
+<h1 id="client"><a href="#client" class="headerlink" title="client"></a>client</h1><h2 id="maxclient"><a href="#maxclient" class="headerlink" title="maxclient"></a>maxclient</h2><p>设置客户端最大连接数，如果不指定则是当前文件系统最大值减32，达到限制后新的连接会收到<code>max number of clients reached</code>错误。</p>
+<pre class=" language-sh"><code class="language-sh"># maxclients 10000</code></pre>
+<h1 id="memory-management"><a href="#memory-management" class="headerlink" title="memory management"></a>memory management</h1><h2 id="maxmemory"><a href="#maxmemory" class="headerlink" title="maxmemory"></a>maxmemory</h2><p>设置占用内存最大值字节数，达到内存限制时，会采用所选的策略删除键。<br>如果Redis无法根据策略删除密钥，或者策略设置为<code>noeviction</code>。如果命令将使用更多内存，如SET，LPUSH等时，Redis将开始回复错误。只读命令正常回复。<br>当将Redis用作LRU或LFU缓存，或为实例设置硬内存限制（使用<code>noevection</code>策略）时，此选项通常很有用。<br>如果将副本附加到一个启用了<code>maxmemory</code>的实例上，则会从已用的内存计数中减去提供副本所需的输出缓冲区的大小，这样网络问题或重新同步就不会触发一个循环，在该循环中取出键，而反过来，输出缓冲区的复制副本中充满了被收回的键的del，从而导致删除更多的键，等等，直到数据库完全清空。<br>简而言之，如果您附加了副本，建议您为<code>maxmemory</code>设置一个较低的限制，以便系统上有一些用于副本输出缓冲区的可用RAM（但如果策略为<code>noevicetion</code>，则不需要这样做）。</p>
+<pre class=" language-sh"><code class="language-sh"># maxmemory <bytes></code></pre>
+<h2 id="maxmemory-policy"><a href="#maxmemory-policy" class="headerlink" title="maxmemory-policy"></a>maxmemory-policy</h2><p>当内存到达maxmemory的限制时，可以采用以下选项清理内存：</p>
+<ul>
+<li>volatile-lru，在具有过期集的密钥中使用近似的LRU逐出。</li>
+<li>allkeys-lru，使用近似的LRU逐出任何密钥。</li>
+<li>volatile-lfu，在具有过期集的键中使用近似的逐出。</li>
+<li>allkeys-lfu，使用近似的LFU逐出任何键。</li>
+<li>volatile-random，在有过期集的密钥中删除一个随机密钥。</li>
+<li>allkeys-random，随机删除任意键。</li>
+<li>volatile-ttl，删除最接近过期时间的密钥（次要TTL）。</li>
+<li>noeviction，不要逐出任何内容，只返回写操作错误。</li>
+</ul>
+<p>LRU指<code>Least Recently Used</code>，LFU指<code>Least Frequently Used</code>。<br>当操作命令是<code>set</code> <code>setnx</code> <code>setex</code> <code>append</code> <code>incr</code> <code>decr</code> <code>rpush</code> <code>lpush</code> <code>rpushx</code> <code>lpushx</code> <code>linsert</code> <code>lset</code> <code>rpoplpush</code> <code>sadd</code> <code>sinter</code> <code>sinterstore</code> <code>sunion</code> <code>sunionstore</code> <code>sdiff</code> <code>sdiffstore</code> <code>zadd</code> <code>zincrby</code> <code>zunionstore</code> <code>zinterstore</code> <code>hset</code> <code>hsetnx</code> <code>hmset</code> <code>hincrby</code> <code>incrby</code> <code>decrby</code> <code>getset</code> <code>mset</code> <code>msetnx</code> <code>exec</code> <code>sort</code>时，如果没有合适的键删除时返回错误。<br>默认<code>noeviction</code>。</p>
+<pre class=" language-sh"><code class="language-sh"># maxmemory-policy noeviction</code></pre>
+<h2 id="maxmemory-samples"><a href="#maxmemory-samples" class="headerlink" title="maxmemory-samples"></a>maxmemory-samples</h2><p>LRU，LFU和最小的TTL算法是不准确的算法，可以通过设置改选项提高精确度。<br>默认值为5会产生足够好的结果。10近似非常接近但成本更高的CPU，3更快但不是很准确。</p>
+<pre class=" language-sh"><code class="language-sh"># maxmemory-samples 5</code></pre>
+<h2 id="replica-ignore-maxmemory"><a href="#replica-ignore-maxmemory" class="headerlink" title="replica-ignore-maxmemory"></a>replica-ignore-maxmemory</h2><p>副本会忽略<code>maxmemory</code>指令，当master剔除键会发送DEL进行同步。但是如果副本可写，或者希望与master内存设置不一样，并且确定写入是幂等的，可以设置此值。</p>
+<pre class=" language-sh"><code class="language-sh"># replica-ignore-maxmemory yes</code></pre>
+<h1 id="lazy-freeing"><a href="#lazy-freeing" class="headerlink" title="lazy freeing"></a>lazy freeing</h1><p>Redis有两种方法删除键。一种是通过DEL阻塞的删除对象，删除时间与键关联的内存大小有关，如果是大key则可能会阻塞服务器很久。所以Redis提供异步删除。例如：<code>UNLINK</code>，<code>FLUSHALL</code>，<code>FLUSHDB</code>，会以恒定的时间，后台逐步释放。<br>这些命令是用户主动调用的，在某些情况下，Redis会主动的删除键：</p>
+<ul>
+<li>到达内存限制的时候，会主动调用剔除策略进行删除键；</li>
+<li>键到达了过期时间；</li>
+<li>修改键值可能会删除原有内容，例如<code>RENAME</code>，<code>SET</code>等；</li>
+<li>在复制过程中，当一个副本与其主服务器执行完全重新同步时，将删除整个数据库的内容，以便加载刚刚传输的RDB文件。</li>
+</ul>
+<p>在上述所有情况下，默认情况是以阻塞方式删除对象，就像调用<code>DEL</code>一样。但是，您可以具体配置每种情况，以便以非阻塞方式释放内存，就像调用<code>UNLINK</code>时一样，使用以下配置指令：</p>
+<pre class=" language-sh"><code class="language-sh">lazyfree-lazy-eviction no
+lazyfree-lazy-expire no
+lazyfree-lazy-server-del no
+replica-lazy-flush no</code></pre>
+<h1 id="append-only-mode"><a href="#append-only-mode" class="headerlink" title="append only mode"></a>append only mode</h1><h2 id="appendonly-no"><a href="#appendonly-no" class="headerlink" title="appendonly no"></a>appendonly no</h2><p>默认情况，Redis采用异步的方式转储磁盘，但有可能丢失数据，取决于保存点。<br>Redis提供追加模式，一种更好的持久性。例如使用fsync policy，Redis仅会丢失1秒的写入或Redis进程本身发生什么错误丢失写入数据，但是系统仍能正常运行。<br><code>AOF</code>和<code>RDB</code>持久性可以同时启用而不会出现问题。如果在启动时启用<code>AOF</code>，Redis将加载<code>AOF</code>。</p>
+<pre class=" language-sh"><code class="language-sh">appendonly no</code></pre>
+<h2 id="appendfilename"><a href="#appendfilename" class="headerlink" title="appendfilename"></a>appendfilename</h2><p>指定追加文件</p>
+<pre class=" language-sh"><code class="language-sh">appendfilename "appendonly.aof"</code></pre>
+<h2 id="appendfsync"><a href="#appendfsync" class="headerlink" title="appendfsync"></a>appendfsync</h2><p><code>fsync()</code>调用告诉操作系统在磁盘上实际写入数据，而不是在输出缓冲区中等待更多数据。有些操作系统将真正刷新磁盘上的数据，而另一些操作系统则会尽快进行刷新。<br>Redis支持三种模式：</p>
+<ul>
+<li><code>no</code>，不调用<code>fsync()</code>，仅让操作系统管理刷新数据，快速；</li>
+<li><code>always</code>，每次写入数据的时候添加文件，慢，安全；</li>
+<li><code>everysec</code>，每秒添加一次，折中。</li>
+</ul>
+<p>默认采用<code>everysec</code>。</p>
+<pre class=" language-sh"><code class="language-sh"># appendfsync always
+appendfsync everysec
+# appendfsync no</code></pre>
+<h2 id="no-appendfsync-on-rewrite"><a href="#no-appendfsync-on-rewrite" class="headerlink" title="no-appendfsync-on-rewrite"></a>no-appendfsync-on-rewrite</h2><p>当<code>AOF</code>的同步策略设置为<code>always</code>或<code>everysec</code>时，后台保存数据，这会有大量<code>IO</code>操作，在某些平台下，调用<code>fsync()</code>会阻塞很长时间。<br>为了缓解这个问题，可以使用<code>BGSAVE</code>或<code>BGREWRITEAOF</code>止主进程调用<code>fsync()</code>阻塞。<br>这意味着当另一个子进程正在保存时，redis的耐久性与<code>appendfsync none</code>相同。实际上，这意味着在最坏的情况下（使用默认的Linux设置），可能会丢失长达30秒的日志。<br>如果遇到延迟问题，请将其转为<code>yes</code>。否则 ，从耐久性的角度来看，<code>no</code>，这是最安全的选择。</p>
+<pre class=" language-sh"><code class="language-sh">no-appendfsync-on-rewrite no</code></pre>
+<h2 id="auto-aof-rewrite-percentage"><a href="#auto-aof-rewrite-percentage" class="headerlink" title="auto-aof-rewrite-percentage"></a>auto-aof-rewrite-percentage</h2><p>自动重写仅附加文件。 当<code>AOF</code>日志大小增长指定的百分比时， Redis能够自动重写日志文件，隐式调用<code>BGREWRITEAOF</code>。<br>工作方式：Redis会记录最后一次复写时<code>AOF</code>文件大小，如果复写发生在重启时，这个大小是<code>AOF</code>在启动的时使用。<br>将此基本大小与当前大小进行比较。如果当前大小大于指定的百分比，则会触发重写。另外需要为要重写的<code>AOF</code>文件指定最小大小，这对于避免重写<code>AOF</code>文件很有用，即使达到了增加的百分比，但仍然很小。<br>指定零的百分比以禁用自动AOF重写功能。</p>
+<pre class=" language-sh"><code class="language-sh">auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb</code></pre>
+<h2 id="aof-load-truncated"><a href="#aof-load-truncated" class="headerlink" title="aof-load-truncated"></a>aof-load-truncated</h2><p>在Redis启动过程中，当<code>AOF</code>数据被加载回内存时，可能会发现<code>AOF</code>文件在末尾被截断。当运行Redis的系统崩溃时可能会发生这种情况，尤其是当安装<code>ext4</code>文件系统时，如果没有<code>data=ordered</code>选项（但是，当Redis本身崩溃或中止，但操作系统仍然正常工作时，则不会发生这种情况）。<br>当发生这种情况时，Redis退出并报错，也可以加载尽可能多的数据（现在是默认值），如果在末尾发现<code>AOF</code>文件被截断，则可以启动它。以下选项控制此行为。<br>如果设置为<code>yes</code>，则会加载一个已截断的<code>AOF</code>文件，并且Redis服务器开始发出日志，通知用户事件。否则，如果该选项设置为<code>no</code>，则服务器将以错误中止并拒绝启动。<br>当选项设置为否时，用户需要在重新启动服务器之前使用<code>redis-check-aof</code>修复<code>aof</code>文件。如果在中间发现AOF文件已损坏，服务器仍将退出并出现错误。此选项仅适用于Redis尝试从AOF文件读取更多数据但未找到足够字节的情况。</p>
+<pre class=" language-sh"><code class="language-sh">aof-load-truncated yes</code></pre>
+<h2 id="aof-use-rdb-preamble"><a href="#aof-use-rdb-preamble" class="headerlink" title="aof-use-rdb-preamble"></a>aof-use-rdb-preamble</h2><p>在重写<code>AOF</code>文件时，Redis可以使用AOF文件中的RDB前导码来更快地重写和恢复。启用此选项时，重写的<code>AOF</code>文件由两个不同的节<code>[RDB file][AOF tail]</code>组成。<br>Redis加载时，会识别出<code>AOF</code>文件以<code>REDIS</code>字符串开始并加载前缀<code>RDB</code>文件，然后继续加载<code>AOF</code>尾部。</p>
+<pre class=" language-sh"><code class="language-sh">aof-use-rdb-preamble yes</code></pre>
+<h1 id="LUA-scripting"><a href="#LUA-scripting" class="headerlink" title="LUA scripting"></a>LUA scripting</h1><p>Lua脚本的最大执行时间（以毫秒为单位）。<br>如果达到最大执行时间，redis将记录脚本在最大允许时间之后仍在执行中，并开始对出现错误的查询进行回复。<br>当长时间运行的脚本超过最大执行时间时，只有<code>SCRIPT KILL</code>和<code>SHUTDOWN NOSAVE</code>命令可用。第一个可以用于停止尚未调用写入命令的脚本。第二种方法是在脚本已经发出写命令但用户不希望等待脚本自然终止的情况下关闭服务器。<br>将其设置为0或负值，以便无警告地无限执行。</p>
+<pre class=" language-sh"><code class="language-sh">lua-time-limit 5000</code></pre>
+<h1 id="Redis-cluster"><a href="#Redis-cluster" class="headerlink" title="Redis cluster"></a>Redis cluster</h1><h2 id="cluster-enabled"><a href="#cluster-enabled" class="headerlink" title="cluster-enabled"></a>cluster-enabled</h2><p>普通的redis实例不能是redis集群的一部分；只有作为集群节点启动的节点才能。为了启动Redis实例作为群集节点，解注释并设置成<code>yes</code>即可。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-enabled yes</code></pre>
+<h2 id="cluster-config-file"><a href="#cluster-config-file" class="headerlink" title="cluster-config-file"></a>cluster-config-file</h2><p>每个集群节点都有一个集群配置文件，此文件不需要手动编辑。它创建和更新都有Redis节点进行。每个Redis集群节点都需要不同的集群配置文件。确保在同一系统中运行的实例没有重叠的群集配置文件名。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-config-file nodes-6379.conf</code></pre>
+<h2 id="cluster-node-timeout"><a href="#cluster-node-timeout" class="headerlink" title="cluster-node-timeout"></a>cluster-node-timeout</h2><p>集群节点超时，单位毫秒。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-node-timeout 15000</code></pre>
+<h2 id="cluster-replica-validity-factor"><a href="#cluster-replica-validity-factor" class="headerlink" title="cluster-replica-validity-factor"></a>cluster-replica-validity-factor</h2><p>如果故障主机的数据看起来太旧，那么它的副本将避免启动故障转移。<br>对于副本来说没法验证数据的是否太旧，所以需要执行两项检查：</p>
+<ul>
+<li>如果有多个副本能够进行故障转移，它们会交换消息，以尽量利用具有最佳复制偏移量的副本（从主处理的更多数据）。副本将尝试按偏移量获取它们的列组，并将与列组成比例的延迟应用于故障转移的开始。</li>
+<li>每个副本都计算与主副本的最后一次交互的时间。这可以是接收到的最后一个ping或命令（如果主服务器仍然处于“已连接”状态），也可以是断开与主服务器的连接后经过的时间（如果复制链接当前已关闭）。如果上一次交互太旧，则复制副本将不会尝试进行故障转移。</li>
+</ul>
+<p>第二点可以由用户进行调整，即，如果副本上次与主服务器交互时间超过时间大于：<code>(node-timeout * replica-validity-factor) + repl-ping-replica-period</code>。<br>因此，例如，如果节点超时为30秒，副本有效性系数为10，并且假设默认的复制副本周期为10秒，那么如果副本无法与主副本进行超过310秒的对话，则不会尝试进行故障转移。<br>较大的副本有效性系数可能允许具有太旧数据的副本故障转移到主服务器，而太小的值可能会阻止群集根本无法选择副本。<br>为了获得最大的可用性，可以将副本有效性系数设置为0，这意味着，无论副本上次与主服务器交互的时间如何，它们都将始终尝试对主服务器进行故障转移。（然而，他们总是尝试应用与他们的偏移等级成比例的延迟）。<br>零是唯一能够保证当所有分区恢复时群集始终能够继续运行的值。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-replica-validity-factor 10</code></pre>
+<h2 id="cluster-migration-barrier"><a href="#cluster-migration-barrier" class="headerlink" title="cluster-migration-barrier"></a>cluster-migration-barrier</h2><p>群集副本能够迁移到孤立的主服务器，即没有工作副本的主服务器。这提高了集群抵御故障的能力，否则，如果一个孤立的主机没有工作的副本，它就不能在发生故障的情况下进行故障转移。<br>只有在至少有一个给定数量的旧主控形状的其他工作副本的情况下，副本才会迁移到孤立的主控形状。这个数字是“移民壁垒”。迁移屏障为1意味着只有在主副本至少有一个其他工作副本的情况下，副本才会迁移，以此类推。它通常反映出集群中每个主服务器所需的副本数量。<br>默认值为1（仅当主副本至少保留一个副本时才迁移副本）。要禁用迁移，只需将其设置为非常大的值。#可以设置值0，但仅对调试和生产中的危险有用。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-migration-barrier 1</code></pre>
+<h2 id="cluster-require-full-coverage"><a href="#cluster-require-full-coverage" class="headerlink" title="cluster-require-full-coverage"></a>cluster-require-full-coverage</h2><p>默认情况下，如果Redis群集节点检测到至少有一个散列槽未被发现（没有可用节点提供服务），则它们将停止接受查询。这样，如果集群部分关闭（例如一系列散列槽不再被覆盖），所有集群最终都将不可用。一旦所有插槽再次被覆盖，它就会自动返回可用状态。<br>然而，有时您希望集群的子集工作，继续接受对仍然被覆盖的密钥空间部分的查询。为此，只需将<code>cluster-require-full-coverage</code>选项设置为no。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-require-full-coverage yes</code></pre>
+<h2 id="cluster-replica-no-failover"><a href="#cluster-replica-no-failover" class="headerlink" title="cluster-replica-no-failover"></a>cluster-replica-no-failover</h2><p>当设置为“是”时，此选项可防止副本在主服务器故障时尝试故障转移其主服务器。但是，如果强制的话，主服务器仍然可以执行手动故障转移。<br>这在不同的情况下很有用，特别是在多个数据中心操作的情况下，如果不升级，我们希望一方永远不会升级；如果发生完全的DC故障。</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-replica-no-failover no</code></pre>
+<h1 id="CLUSTER-DOCKER-NAT-support"><a href="#CLUSTER-DOCKER-NAT-support" class="headerlink" title="CLUSTER DOCKER/NAT support"></a>CLUSTER DOCKER/NAT support</h1><p>在某些部署中，Redis群集节点地址发现失败，原因是地址是NAT，或者端口是转发的（典型情况是Docker和其他容器）。<br>为了使redis集群在这样的环境中工作，需要一个静态配置，其中每个节点都知道其公共地址。以下两个选项用于此范围，分别是：</p>
+<ul>
+<li>cluster-announce-ip</li>
+<li>cluster-announce-port</li>
+<li>cluster-announce-bus-port</li>
+</ul>
+<p>每个节点都指示其地址、客户机端口和集群消息总线端口。然后将信息发布到总线数据包的头部，以便其他节点能够正确映射发布信息的节点的地址。<br>如果不使用上述选项，则将使用普通的Redis群集自动检测。<br>请注意，重新映射时，总线端口可能不在客户机端口+10000的固定偏移量处，因此您可以根据重新映射的方式指定任何端口和总线端口。如果未设置总线端口，则通常使用固定偏移量10000。<br>例如：</p>
+<pre class=" language-sh"><code class="language-sh"># cluster-announce-ip 10.1.1.5
+# cluster-announce-port 6379
+# cluster-announce-bus-port 6380</code></pre>
+<h1 id="slow-log"><a href="#slow-log" class="headerlink" title="slow log"></a>slow log</h1><p>Redis slow log是一个系统日志查询，它超过了指定的执行时间。执行时间不包括I/O操作，如与客户机交谈、发送回复等，而只包括实际执行命令所需的时间（这是命令执行的唯一阶段，线程被阻塞，无法以平均值服务其他请求时间）。<br>您可以用两个参数配置慢日志：一个参数告诉redis命令要记录的执行时间（以微秒计），另一个参数是慢日志的长度。当记录新命令时，最旧的命令将从记录的命令队列中删除。</p>
+<h2 id="slowlog-slower-than"><a href="#slowlog-slower-than" class="headerlink" title="slowlog-slower-than"></a>slowlog-slower-than</h2><p>以下时间以微秒表示，因此1000000等于一秒。注意，负数会禁用慢速日志，而零值会强制记录每个命令。</p>
+<pre class=" language-sh"><code class="language-sh">slowlog-log-slower-than 10000</code></pre>
+<h2 id="slowlog-max-len"><a href="#slowlog-max-len" class="headerlink" title="slowlog-max-len"></a>slowlog-max-len</h2><p>这个长度没有限制。只是要知道它会消耗内存。可以使用<code>SLOWLOG RESET</code>来回收慢速日志使用的内存。</p>
+<pre class=" language-sh"><code class="language-sh">slowlog-max-len 128</code></pre>
+<h1 id="latency-monitor"><a href="#latency-monitor" class="headerlink" title="latency monitor"></a>latency monitor</h1><p>Redis延迟监控子系统在运行时对不同的操作进行采样，以便收集与Redis实例的可能延迟源相关的数据。<br>通过<code>LATENCY</code>命令，用户可以使用这些信息来打印图形和获取报告。<br>系统只记录在时间等于或大于通过延迟监视器阈值配置指令指定的毫秒数内执行的操作。当其值设置为零时，延迟监视器将关闭。<br>默认情况下，延迟监控是禁用的，因为如果您没有延迟问题，则通常不需要它，并且收集数据会对性能产生影响，尽管这一影响很小，但可以在大负载下进行测量。如果需要，可以使用命令<code>CONFIG SET latency-monitor-threshold &lt;milliseconds&gt;</code>在运行时轻松启用延迟监控。</p>
+<pre class=" language-sh"><code class="language-sh">latency-monitor-threshold 0</code></pre>
+<h1 id="event-notification"><a href="#event-notification" class="headerlink" title="event notification"></a>event notification</h1><p>例如，如果启用了keyspace事件通知，并且客户机对存储在数据库0中的密钥<code>foo</code>执行<code>DEL</code>操作，则将通过pub/sub发布两条消息：</p>
+<pre class=" language-sh"><code class="language-sh">PUBLISH __keyspace@0__:foo del
+PUBLISH __keyevent@0__:del foo</code></pre>
+<p>可以在一组类中选择Redis将通知的事件。每个类都由单个字符标识：</p>
+<pre class=" language-sh"><code class="language-sh">#  K     Keyspace events, published with __keyspace@<db>__ prefix.
+#  E     Keyevent events, published with __keyevent@<db>__ prefix.
+#  g     Generic commands (non-type specific) like DEL, EXPIRE, RENAME, ...
+#  $     String commands
+#  l     List commands
+#  s     Set commands
+#  h     Hash commands
+#  z     Sorted set commands
+#  x     Expired events (events generated every time a key expires)
+#  e     Evicted events (events generated when a key is evicted for maxmemory)
+#  A     Alias for g$lshzxe, so that the "AKE" string means all the events.</code></pre>
+<p><code>notify-keyspace-events</code>将一个由零个或多个字符组成的字符串作为参数。空字符串表示通知被禁用。</p>
+<p>默认情况下，所有通知都被禁用，因为大多数用户不需要此功能，而且此功能有一些开销。请注意，如果不指定<code>K</code>或<code>E</code>中的至少一个，则不会传递任何事件。</p>
+<pre class=" language-sh"><code class="language-sh">notify-keyspace-events ""</code></pre>
+<h1 id="advanced-config"><a href="#advanced-config" class="headerlink" title="advanced config"></a>advanced config</h1><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">djaigo</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://blog.djaigo.com/redis/redis-pei-zhi-wen-jian.html">https://blog.djaigo.com/redis/redis-pei-zhi-wen-jian.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">djaigo</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
+                                </a>
+                            
+                                <a href="/tags/config/">
+                                    <span class="chip bg-color">config</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">程序猿唯一赚钱方式!&lt;br/&gt;The only way to make money for code monkey!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/Screenshot_2018-11-27-18-28-43.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/Screenshot_2018-11-27-18-29-53.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Tue Dec 10 2019 14:43:35 GMT+0800',
+    owner: 'daihainidewo',
+    repo: 'gitment',
+    oauth: {
+        client_id: '45395aedbda925ff5cf5',
+        client_secret: 'b08e832c83bc762fd5d09947af1fdf559d3c52da'
+    }
+});
+
+gitment.render('gitment-content');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/git/git-stash.html">
+                    <div class="card-image">
+                        
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/golang.png" class="responsive-img" alt="git stash">
+                        
+                        <span class="card-title">git stash</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            git stash将当前所有更改记录存放于栈区，可以在必要时将当前的更改恢复应用场景：
+
+需要切换分支，但是不想commit目前的文件更改
+用于临时切换分支
+
+命令git stash将当前更改存储到栈区，当前文件目录就会回退到最近分支com
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/git/" class="post-category">
+                                    git
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
+                    </a>
+                    
+                    <a href="/tags/cmd/">
+                        <span class="chip bg-color">cmd</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/program/chang-jian-fu-zai-jun-heng-suan-fa.html">
+                    <div class="card-image">
+                        
+                        <img src="https://img-1251474779.cos.ap-beijing.myqcloud.com/golang.png" class="responsive-img" alt="常见负载均衡算法">
+                        
+                        <span class="card-title">常见负载均衡算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            常见负载均衡算法Random随机负载均衡随机，按权重设置随机概率。在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。
+Weight Random不同的服务器性能不同，所以不能一概而论
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/program/" class="post-category">
+                                    program
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/load-balance/">
+                        <span class="chip bg-color">load balance</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Djaigo</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+            <span id="icp"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAYAAADAQbwGAAAACXBIWXMAAAsTAAALEwEAmpwYAAA5z2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgICAgICAgICB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgICAgIDx4bXA6Q3JlYXRlRGF0ZT4yMDE5LTA5LTIzVDEyOjA5OjI4KzA4OjAwPC94bXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhtcDpNZXRhZGF0YURhdGU+MjAxOS0wOS0yM1QxMjowOToyOCswODowMDwveG1wOk1ldGFkYXRhRGF0ZT4KICAgICAgICAgPHhtcDpNb2RpZnlEYXRlPjIwMTktMDktMjNUMTI6MDk6MjgrMDg6MDA8L3htcDpNb2RpZnlEYXRlPgogICAgICAgICA8eG1wTU06SW5zdGFuY2VJRD54bXAuaWlkOjg0OTNiNTZlLWM2MmMtY2I0Zi1hMzBmLWM5ZDk3MGNjZTkyMjwveG1wTU06SW5zdGFuY2VJRD4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo5MmFhMDM0YS1lMDk3LTc3NDktYWI1YS03ZTJiMTI1MTk2ZjY8L3htcE1NOkRvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+eG1wLmRpZDo5MmFhMDM0YS1lMDk3LTc3NDktYWI1YS03ZTJiMTI1MTk2ZjY8L3htcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkhpc3Rvcnk+CiAgICAgICAgICAgIDxyZGY6U2VxPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5jcmVhdGVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDppbnN0YW5jZUlEPnhtcC5paWQ6OTJhYTAzNGEtZTA5Ny03NzQ5LWFiNWEtN2UyYjEyNTE5NmY2PC9zdEV2dDppbnN0YW5jZUlEPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6d2hlbj4yMDE5LTA5LTIzVDEyOjA5OjI4KzA4OjAwPC9zdEV2dDp3aGVuPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6c29mdHdhcmVBZ2VudD5BZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDo4NDkzYjU2ZS1jNjJjLWNiNGYtYTMwZi1jOWQ5NzBjY2U5MjI8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMTktMDktMjNUMTI6MDk6MjgrMDg6MDA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAoV2luZG93cyk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpTZXE+CiAgICAgICAgIDwveG1wTU06SGlzdG9yeT4KICAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9wbmc8L2RjOmZvcm1hdD4KICAgICAgICAgPHBob3Rvc2hvcDpDb2xvck1vZGU+MzwvcGhvdG9zaG9wOkNvbG9yTW9kZT4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgICAgPHRpZmY6WFJlc29sdXRpb24+NzIwMDAwLzEwMDAwPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjAwMDAvMTAwMDA8L3RpZmY6WVJlc29sdXRpb24+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDxleGlmOkNvbG9yU3BhY2U+NjU1MzU8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjIwPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjIyPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz4jh4n+AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAATMSURBVHjarNVbbBR1FMfx78zOzs5Od7v3btcuEmgFilyqgNdaBI1cAgUxIWCMikFEjRqJPGh8IRgDLxjReAliFEKMCglJIQSoNcolgjEQAbmUUqC7pbS73XZnd2d3ZmfHB7GKwfji7+08/D/5n+T/P0ewbZv/MxJAme4bRTVQBcZxOvcd4I5FL9YWLp1o/X7fz8+X9LL88GNTtwSnTNl9dtdXicaFS0CuB/pJX9gNQGjcmj/AW2QWsPqLF19vtfVOpaek4gj4Kew894H+Sdt7zY+MbQM+B/b886B4C0zp+Hhrx9Or2pfmileUcR4HK5XrrFZ6eOD+KMH7o9LKVQcfP7B5Qxvg+i8wXjqxfv/7O4ZZvnIsz8az+D49Q/q8RbrLYnjBJyyyTvHatmVs2WVin//sW0D5N7Dx6p63u1oWnGrxN0R5OXyK7h1ZxFF+LM2AUgUh4ufoK0dYqp4g+uBdPLpg78KBw1svAeNvAvNnu5CK+z1t573y8d7pzJuukTuZRbw6jOB34Rq0KB65jnNMCCWnk/ryGEvmGHRcnMj2Q1bMI+TdwTHP3HTDeOWn7zZVBDdIBaq1XrJ94LRMGCwi1KvI0/yI1/LIVEh169QFSyAIZHIiroi0CRgzAl45d/AJI5lsDnhkKLuwYzHCzbXksNEeCGEtj+NZ14T62hTEiErNtDD5ggG2TaxGhcTJWYM9R58bAVVPoDGrmYyNFEEJceCYijS7mvTC0VhJDeHXPIW91zG7h5DXNhN8fSo7t2WAKpomS+S7+ikmuuIjYGWwd2E2IzEprhG/R+aj7VX8sCFB04wYPtVL4UyGSn+J4qkM3uQQp9dfYPM2F9EmP5PrhkklS5iD55pHQFHK+7WsSPXABZbOsSibHsw9fYS+/gWxzokRcVCpkQjPjhHruERqy2nyhoMlrU686U60rITkFZ0jX8+t3t4ujr/cakXrWHGvxqa6CB8lGzF7zhBKdyL63OhnMmgNNSQDMb4R3VDtZ8V9/ZS9cfx3CqiBUXtHQBBr7KxNb5fGpMZu3nljGm+vbWGPNhmyJq2FNEG/yM69XnKoQIA1LynMaOiktxMoFqiUtakjoOQ3ppe9Ucw+k0T/WV5tdrGkvYqOfQXOiVOYO/EiMXeKclsdRkZn1ASVt+Ze5vrRyxRMBSUsI/nlCQCCbduUcsefTB/buEPvMyilTEhcoX5xE66oAlYaKy2R69fxjQnC6BAkUnTvPo/uDeMZ68Fdq+JrWD5TDsz/8U8Qh+B6avD0pg+tou5LHepDqrKpndmINahjFvKIqoISrEKQnaSPdlG2JHzT6zGLpH3jW5bJTrVdDsz/o+VSqgLoyWKfW1eiFV90dgPWcB5Ly4Iq45D9yG4whnLkExmU0SGUeJTSUIFiUrPdo3IY5AgGbjwbB4dxcPjNmru9tc5AjNJwhYolUbEcFAc0sCsY6WFynQMIDicIAsVrKZxukehDsbCsai/IqvbXxHaFZgAszvQe2mgkflshOwpVashFOW+AYOIoDVHWDbwTwjgUB4aeQ6wKIwRqr5al+i2KGnn3phVwIwXglczZ6Dp9eGBeyeyZedvEyMSKJngUvxiU3F60a1x1R/wFqabl5GBXf7t+JXNg9ENU/j4Phf97Sf0+ADr3CMhtMiuNAAAAAElFTkSuQmCC" style="vertical-align: text-bottom;" />
+                <a href="http://beian.miit.gov.cn/" target="_blank">陕ICP备16003471号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/djaigoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:dh979018013@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=979018013" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 979018013" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f8cc900e9b8c88ca4fb7bd163c8b37dc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

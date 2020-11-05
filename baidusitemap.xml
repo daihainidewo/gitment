@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://blog.djaigo.com/golang/golang-bian-yi-zhi-shi.html</loc>
+    <lastmod>2020-11-03</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-xie-cheng-zhan.html</loc>
+    <lastmod>2020-10-28</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-sar-ming-ling.html</loc>
+    <lastmod>2020-10-14</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-xie-cheng-diao-du-guan-li-yuan-ma-fen-xi.html</loc>
+    <lastmod>2020-10-12</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-mpg-you-xian-zhuang-tai-ji.html</loc>
+    <lastmod>2020-09-29</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-mpg-chang-jing-yuan-ma-pou-xi.html</loc>
+    <lastmod>2020-09-29</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-nei-cun-guan-li.html</loc>
+    <lastmod>2020-09-21</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-sed-ming-ling.html</loc>
+    <lastmod>2020-09-17</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-find-ming-ling.html</loc>
+    <lastmod>2020-09-16</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-mpg-diao-du.html</loc>
+    <lastmod>2020-08-07</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/wireshark/wireshark-jie-xi-zi-ding-yi-xie-yi.html</loc>
+    <lastmod>2020-07-23</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/service-discovery/fu-wu-zhu-ce-yu-fa-xian.html</loc>
+    <lastmod>2020-07-13</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/protobuf/protocol-buffer.html</loc>
+    <lastmod>2020-04-23</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-diao-yong-syscall.html</loc>
+    <lastmod>2020-04-17</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-diao-yong-ipc.html</loc>
+    <lastmod>2020-04-15</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-ruan-lian-jie-he-ying-lian-jie.html</loc>
+    <lastmod>2020-04-09</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/golang-de-tcpsocket-bian-cheng.html</loc>
+    <lastmod>2020-04-09</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/redis/redis-da-key-chu-li.html</loc>
+    <lastmod>2020-04-02</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/etcd/etcdctl-ming-ling-xing-jiao-hu.html</loc>
+    <lastmod>2020-03-24</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-watch-ming-ling.html</loc>
+    <lastmod>2020-01-14</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-awk-ming-ling.html</loc>
+    <lastmod>2020-01-13</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/article/ji-zhu-wen-zhang.html</loc>
+    <lastmod>2020-01-13</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/golang/sync-bao.html</loc>
+    <lastmod>2020-01-13</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-sort-ming-ling.html</loc>
+    <lastmod>2019-12-23</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/net/tcp-xie-yi.html</loc>
+    <lastmod>2019-12-20</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/linux/linux-cut-ming-ling.html</loc>
+    <lastmod>2019-12-20</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/net/ip-xie-yi.html</loc>
+    <lastmod>2019-12-10</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/git/git-stash.html</loc>
+    <lastmod>2019-12-10</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/redis/redis-pei-zhi-wen-jian.html</loc>
+    <lastmod>2019-12-10</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/program/chang-jian-fu-zai-jun-heng-suan-fa.html</loc>
+    <lastmod>2019-12-10</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/program/bi-bao-wen-ti.html</loc>
+    <lastmod>2019-10-10</lastmod>
+  </url>  <url>
+    <loc>https://blog.djaigo.com/docker/chuang-jian-si-you-docker-image-fu-wu-qi.html</loc>
+    <lastmod>2018-08-08</lastmod>
+  </url>
+</urlset>
